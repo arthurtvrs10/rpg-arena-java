@@ -1,0 +1,19 @@
+name: Documentation Improvement
+description: Propose improvements, updates, or additions to project documentation.
+title: "[DOCS] "
+labels: ["type: documentation"]
+body:
+  - type: textarea
+    id: docs-summary
+    attributes:
+      label: Documentation Issue Description
+      description: What documentation is missing, out-of-date, or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution / Suggested Content
+      description: Outline the changes or draft the new content here.
+    validations:
+      required: true

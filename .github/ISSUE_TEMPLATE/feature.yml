@@ -1,0 +1,49 @@
+name: Feature Request
+description: Propose a new feature, domain capability, or engineering improvement.
+title: "[FEAT] "
+labels: ["type: feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a feature for RPG Arena! Please provide details below.
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: As a [role], I want [capability] so that [benefit].
+      placeholder: As a player, I want to view my inventory so that I can decide which item to equip.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Specific, testable criteria for this feature.
+      placeholder: |
+        - [ ] Criterion 1: Success scenario
+        - [ ] Criterion 2: Boundary/edge case
+        - [ ] Criterion 3: Failure/error case
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area / Module
+      description: Which area does this feature relate to?
+      options:
+        - "area: character"
+        - "area: inventory"
+        - "area: mission"
+        - "area: battle"
+        - "area: ranking"
+        - "area: authentication"
+        - "area: architecture"
+        - "area: infrastructure"
+    validations:
+      required: true
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context & Design Notes
+      description: Include any relevant ADRs, architectural trade-offs, or references.

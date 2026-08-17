@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability Reporting
+    url: https://github.com/arthurtvrs10/rpg-arena-java/security/advisories/new
+    about: Please report security vulnerabilities privately using GitHub Security Advisories.
+  - name: 30-Day Intensive Study Track (Portuguese)
+    url: https://github.com/arthurtvrs10/rpg-arena-java/blob/main/docs/pt-BR/COMECE-AQUI.md
+    about: Access the Brazilian Portuguese master plan, daily study guides, and reference documents.
