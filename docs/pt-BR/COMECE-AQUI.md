@@ -82,13 +82,13 @@ Você deverá conseguir demonstrar:
 
 ## Ordem de leitura
 
-1. [Plano mestre](01-PLANO-MESTRE-30-DIAS.md)
-2. [Escopo do produto](02-ESCOPO-PRODUTO-GITHUB.md)
-3. [Produto e MVP](docs/01-PRODUTO-E-MVP.md)
-4. [Regras de negócio](docs/03-REGRAS-DE-NEGOCIO.md)
-5. [Arquitetura e pastas](docs/04-ARQUITETURA-E-PASTAS.md)
-6. [Metodologia](docs/10-METODOLOGIA-DE-APRENDIZAGEM.md)
-7. [Sprint 1 — Dia 1](tarefas/sprint-01/dia-01-visao-escopo-backlog.tarefas.md)
+1. [Plano mestre](PLANO-MESTRE-30-DIAS.md)
+2. [Escopo do produto](PRODUCT-SCOPE.md)
+3. [Produto e MVP](reference/01-PRODUTO-E-MVP.md)
+4. [Regras de negócio](reference/03-REGRAS-DE-NEGOCIO.md)
+5. [Arquitetura e pastas](reference/04-ARQUITETURA-E-PASTAS.md)
+6. [Metodologia](reference/10-METODOLOGIA-DE-APRENDIZAGEM.md)
+7. [Sprint 1 — Dia 1](study-plan/sprint-01/dia-01-visao-escopo-backlog.tarefas.md)
 
 ## Regra final
 
