@@ -1,0 +1,74 @@
+SEMANA 12 - OWNERSHIP E GAMEPLAY SEGURO
+PERIODO: 09/11/2026 A 15/11/2026
+CARGA: 35 HORAS
+OBJETIVO: Impedir acesso horizontal e expor batalha/missões com segurança.
+ENTREGA: API segura e release v0.3.0.
+CONTEUDO: EPISODIO 06 / SHORT 12
+
+TAREFAS
+=======
+
+[ ] RPG-M3-W12-01 - Aplicar ownership de personagem
+    AREA: Autorização | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Valide conta autenticada no caso de uso, não apenas na URL/controller; admin usa regra explícita.
+    ACEITE: Trocar characterId nunca concede acesso a outro jogador.
+    EVIDENCIA: OwnershipPolicy
+    FONTE: Spring Security Reference - https://docs.spring.io/spring-security/reference/
+    DEPENDENCIA: RPG-M3-W11-06
+
+[ ] RPG-M3-W12-02 - Expor batalha
+    AREA: API | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 7
+    FAZER: Implemente iniciar, agir e consultar com idempotência, optimistic locking e histórico paginado.
+    ACEITE: Ação fora de turno, duplicada ou de não proprietário é recusada.
+    EVIDENCIA: /api/v1/battles
+    FONTE: MDN HTTP - https://developer.mozilla.org/en-US/docs/Web/HTTP
+    DEPENDENCIA: RPG-M3-W12-01
+
+[ ] RPG-M3-W12-03 - Expor missões
+    AREA: API | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Implemente listar, aceitar, acompanhar, abandonar e resgatar usando conta/personagem autenticados.
+    ACEITE: Recompensa não duplica e missão alheia retorna 403/404 conforme política.
+    EVIDENCIA: /api/v1/quests
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M3-W12-02
+
+[ ] RPG-M3-W12-04 - Criar suíte de segurança
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 7
+    FAZER: Teste 401, 403, ownership, roles, token expirado, refresh reutilizado e concorrência com PostgreSQL.
+    ACEITE: Todos os cenários allow/deny rodam no CI.
+    EVIDENCIA: Security integration tests
+    FONTE: Testcontainers for Java - https://java.testcontainers.org/
+    DEPENDENCIA: RPG-M3-W12-03
+
+[ ] RPG-M3-W12-05 - Fechar v0.3.0
+    AREA: Release | TIPO: Entrega | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Rode Bruno do cadastro à missão, exporte OpenAPI, atualize README/changelog e publique tag.
+    ACEITE: Pessoa externa joga por HTTP usando apenas documentação e coleção.
+    EVIDENCIA: Release v0.3.0
+    FONTE: Keep a Changelog - https://keepachangelog.com/en/1.1.0/
+    DEPENDENCIA: RPG-M3-W12-04
+
+[ ] RPG-M3-W12-06 - Publicar episódio 6
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Demonstre JWT, ownership, batalha por HTTP, testes de 403 e jornada Bruno.
+    ACEITE: Vídeo publicado com aviso para nunca versionar segredos.
+    EVIDENCIA: Episódio 6 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M3-W12-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(autorização): complete week 12 core work
+- test: cover week 12 acceptance criteria
+- docs: document week 12 decisions and evidence

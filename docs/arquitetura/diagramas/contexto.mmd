@@ -1,0 +1,10 @@
+flowchart LR
+    Visitor[Visitante] --> API[RPG Arena REST API]
+    Player[Jogador] --> API
+    Admin[Administrador] --> API
+    Bruno[Bruno / cliente HTTP] --> API
+    API --> DB[(PostgreSQL)]
+    Operator[Operador] --> Platform[Docker / Plataforma]
+    Platform --> API
+    Evaluator[Avaliador técnico] --> Repo[GitHub / documentação]
+    Repo --> API

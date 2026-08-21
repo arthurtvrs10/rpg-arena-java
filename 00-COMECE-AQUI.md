@@ -1,95 +1,40 @@
-# RPG Arena — imersão backend de 30 dias
+# RPG Arena — comece aqui
 
-Este é um plano de execução, não uma lista de assuntos. Durante quatro sprints você construirá uma API de RPG de turnos com Java 21, Spring Boot, PostgreSQL, Flyway, Spring Security, testes, Bruno, Docker e integração contínua.
+Este é o pacote único do projeto: código inicial, análise de requisitos, arquitetura, contrato de API, planejamento de seis meses, tarefas semanais, backlog, materiais de GitHub e minissérie do YouTube.
 
-O plano começa no seu nível atual. Ele pressupõe que você já consegue criar um projeto Spring Boot, entende Controller, Service, Repository, DTO, JPA, injeção de dependência, Maven, PostgreSQL básico, Docker Compose e requisições no Bruno. Não há uma semana de variáveis, laços, classes ou CRUD introdutório.
+## Estado real
 
-## Expectativa honesta
+- O repositório contém uma aplicação Spring Boot inicial.
+- Nenhuma funcionalidade de jogo está marcada como implementada.
+- A especificação da versão 1.0 está fechada e pronta para orientar o desenvolvimento.
+- O trabalho começa pela Semana 01 e termina com a release `v1.0.0` na Semana 24.
 
-Não é possível adquirir oito anos reais de experiência em um mês. Experiência inclui incidentes, manutenção, colaboração e decisões repetidas em contextos diferentes. O que este plano faz é concentrar, em 30 dias, práticas que normalmente demoram anos para aparecer em estudos soltos:
+## Ordem obrigatória
 
-- descoberta e recorte de produto;
-- modelagem de regras de negócio;
-- decisões arquiteturais registradas;
-- contratos HTTP e segurança por propriedade;
-- transações, concorrência e idempotência;
-- testes em vários níveis;
-- revisão por critérios, não por “funcionou na minha máquina”;
-- entrega, documentação e comunicação técnica.
+1. Leia `docs/requisitos/00-INDICE-E-DECISOES-FECHADAS.md`.
+2. Leia `docs/requisitos/01-ESPECIFICACAO-DO-PRODUTO.md`.
+3. Consulte `docs/requisitos/02-CATALOGO-REQUISITOS.md` e `03-REGRAS-DE-NEGOCIO.md` durante a implementação.
+4. Abra `docs/api/openapi.yaml` antes de criar controllers ou DTOs.
+5. Abra `planejamento/BACKLOG-MESTRE-6-MESES.xlsx` e altere somente as colunas de acompanhamento.
+6. Execute `planejamento/tarefas/semana-01.tarefas`.
+7. Ao iniciar uma história, use o caso de uso, a regra e o critério BDD ligados a ela.
+8. Só marque uma tarefa como concluída quando a evidência exigida estiver no repositório.
 
-## Calendário
+## Fonte de verdade
 
-- Início: 17/08/2026.
-- Encerramento: 13/09/2026.
-- Trabalho principal: segunda a sábado.
-- Domingo: descanso; no máximo 30 minutos para organizar a semana seguinte.
-- Núcleo diário: 2 horas.
-- Extensão profissional opcional: 60 a 90 minutos.
-- Total: 24 dias de execução em quatro sprints de uma semana.
+Em caso de conflito, siga esta ordem:
 
-## Como usar a pasta
+1. `docs/requisitos/` — comportamento e regras da versão 1.0;
+2. `docs/api/openapi.yaml` — contrato HTTP;
+3. `docs/dados/` — persistência e restrições;
+4. `docs/decisoes/` — decisões arquiteturais;
+5. `planejamento/` — sequência, prazo e conteúdo;
+6. `docs/pt-BR/` — material anterior de estudo, mantido como referência.
 
-1. Leia hoje o plano mestre, o escopo, as regras e a arquitetura.
-2. Abra apenas o arquivo do dia atual na pasta tarefas.
-3. Trabalhe em uma única história por vez.
-4. Consulte primeiro as fontes indicadas no arquivo do dia.
-5. Não abra a seção “Correção e conferência” antes de produzir sua própria tentativa.
-6. Termine cada dia com teste, evidência, diário e commit.
-7. Aos sábados, faça review, retrospectiva, vídeo curto e candidatura.
+## Regra de execução
 
-## Ritual diário de duas horas
+Não implemente uma entidade inteira por antecipação. Entregue fatias verticais: contrato, caso de uso, regra, persistência e teste para um comportamento demonstrável.
 
-| Bloco | Tempo | Ação |
-|---|---:|---|
-| Recuperação | 10 min | Responder sem consultar as perguntas de ontem |
-| Leitura dirigida | 20 min | Ler apenas as seções oficiais indicadas |
-| Modelagem | 15 min | Escrever regra, contrato ou diagrama antes do código |
-| Implementação | 55 min | Executar a menor fatia vertical da tarefa |
-| Verificação | 15 min | Rodar testes e cenário Bruno |
-| Evidência | 5 min | Atualizar diário e criar commit |
+## Primeira ação
 
-A extensão profissional é usada para testes adicionais, documentação, refatoração ou candidatura. Nunca use a extensão para começar outra história sem concluir a atual.
-
-## Regra de consulta sem IA
-
-Quando travar:
-
-1. escreva em uma frase o comportamento esperado;
-2. copie a mensagem de erro exata;
-3. identifique a camada: domínio, HTTP, segurança, persistência, banco ou ambiente;
-4. consulte a documentação oficial indicada;
-5. procure pelo conceito e pela mensagem, não por “projeto completo pronto”;
-6. reduza para um teste mínimo;
-7. registre a causa e a correção no diário.
-
-Se após 25 minutos você ainda não tiver uma hipótese testável, marque a tarefa como impedida, documente o que tentou e passe para o item de diagnóstico do próprio arquivo. Não copie uma solução que você não consegue explicar.
-
-## Resultado obrigatório no encerramento
-
-Você deverá conseguir demonstrar:
-
-- aplicação backend funcional em Java 21 e Spring Boot;
-- regras de personagem, inventário, missão e batalha modeladas por objetos;
-- PostgreSQL versionado por migrations, com transações e controle de concorrência;
-- API REST autenticada, autorizada e isolada por jogador;
-- testes unitários, integração com banco real e coleção Bruno;
-- branches curtas, pull requests, commits semânticos e histórico legível;
-- execução completa com Docker Compose;
-- CI no GitHub Actions;
-- README, escopo, OpenAPI, decisões e demonstração pública;
-- explicação dos principais trade-offs;
-- candidaturas realizadas e feedback registrado.
-
-## Ordem de leitura
-
-1. [Plano mestre](01-PLANO-MESTRE-30-DIAS.md)
-2. [Escopo do produto](02-ESCOPO-PRODUTO-GITHUB.md)
-3. [Produto e MVP](docs/01-PRODUTO-E-MVP.md)
-4. [Regras de negócio](docs/03-REGRAS-DE-NEGOCIO.md)
-5. [Arquitetura e pastas](docs/04-ARQUITETURA-E-PASTAS.md)
-6. [Metodologia](docs/10-METODOLOGIA-DE-APRENDIZAGEM.md)
-7. [Sprint 1 — Dia 1](tarefas/sprint-01/dia-01-visao-escopo-backlog.tarefas.md)
-
-## Regra final
-
-O projeto vale pelo que você consegue explicar, testar e entregar. Uma funcionalidade pequena concluída com regra clara, teste, documentação e commit vale mais do que cinco tecnologias parcialmente instaladas.
+Crie a issue `RPG-M1-W01-01`, abra a branch `docs/visao-produto`, execute o arquivo da Semana 01 e registre as decisões nos documentos já preparados. A análise não precisa ser refeita; altere-a somente por decisão explícita registrada em ADR ou log de mudança de requisito.

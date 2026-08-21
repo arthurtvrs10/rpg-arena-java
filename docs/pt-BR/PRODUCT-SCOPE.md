@@ -1,4 +1,6 @@
-# Escopo do produto — RPG Arena API
+# Escopo do produto — versão anterior de 30 dias
+
+> **REFERÊNCIA ANTERIOR:** a especificação oficial atual está em `../requisitos/01-ESPECIFICACAO-DO-PRODUTO.md`.
 
 Documento pronto para ser publicado no repositório como docs/PRODUCT-SCOPE.md.
 

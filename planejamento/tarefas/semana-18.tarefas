@@ -1,0 +1,74 @@
+SEMANA 18 - DOCKER E EXECUÇÃO REPRODUZÍVEL
+PERIODO: 21/12/2026 A 27/12/2026
+CARGA: 27 HORAS
+OBJETIVO: Fazer qualquer pessoa executar o projeto com um comando.
+ENTREGA: Imagem, Compose, healthchecks e onboarding.
+CONTEUDO: EPISODIO 09 / SHORT 18
+
+TAREFAS
+=======
+
+[ ] RPG-M5-W18-01 - Criar Dockerfile multi-stage
+    AREA: Docker | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Compile com Maven, copie somente JAR, use JRE mínimo e usuário não root; crie .dockerignore.
+    ACEITE: Imagem inicia, não contém fonte/segredo desnecessário e executa sem root.
+    EVIDENCIA: Dockerfile e .dockerignore
+    FONTE: Docker Documentation - https://docs.docker.com/
+    DEPENDENCIA: RPG-M5-W17-06
+
+[ ] RPG-M5-W18-02 - Criar Compose API + PostgreSQL
+    AREA: Docker | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Configure rede, volume, healthcheck, depends_on saudável e variáveis no .env.example.
+    ACEITE: docker compose up --build inicia ambiente do zero.
+    EVIDENCIA: compose.yaml
+    FONTE: Docker Documentation - https://docs.docker.com/
+    DEPENDENCIA: RPG-M5-W18-01
+
+[ ] RPG-M5-W18-03 - Separar profiles e segredos
+    AREA: Configuração | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Defina local, test e prod; valide variáveis obrigatórias e remova defaults inseguros.
+    ACEITE: Nenhum segredo real está no Git e produção falha cedo sem configuração.
+    EVIDENCIA: application-*.yml
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M5-W18-02
+
+[ ] RPG-M5-W18-04 - Adicionar readiness e liveness
+    AREA: Operação | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Configure Actuator, banco e estado da aplicação sem expor detalhes sensíveis.
+    ACEITE: Compose e plataforma detectam indisponibilidade corretamente.
+    EVIDENCIA: Health groups
+    FONTE: Spring Boot Actuator - https://docs.spring.io/spring-boot/reference/actuator/
+    DEPENDENCIA: RPG-M5-W18-03
+
+[ ] RPG-M5-W18-05 - Criar comandos e build de imagem
+    AREA: Onboarding/CI | TIPO: CI/CD | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Padronize build, test, run, logs, reset seguro e build Docker no CI.
+    ACEITE: Novo colaborador executa tudo em até 15 minutos e CI gera imagem.
+    EVIDENCIA: scripts/, Makefile opcional e workflow
+    FONTE: GitHub Actions - https://docs.github.com/actions
+    DEPENDENCIA: RPG-M5-W18-04
+
+[ ] RPG-M5-W18-06 - Publicar episódio 9
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre pirâmide de testes, PostgreSQL real, JaCoCo, Docker multi-stage e Compose.
+    ACEITE: Vídeo publicado e setup foi testado em clone limpo.
+    EVIDENCIA: Episódio 9 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M5-W18-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(docker): complete week 18 core work
+- test: cover week 18 acceptance criteria
+- docs: document week 18 decisions and evidence

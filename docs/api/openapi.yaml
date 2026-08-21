@@ -1,0 +1,1216 @@
+openapi: 3.0.3
+info:
+  title: RPG Arena API
+  version: 1.0.0-draft
+  description: >-
+    Contrato inicial da versão 1.0. A implementação deve evoluir junto com este
+    arquivo. Requisitos e regras estão em docs/requisitos.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://localhost:8080
+    description: Local
+tags:
+  - name: Auth
+  - name: Profile
+  - name: Characters
+  - name: Inventory
+  - name: Quests
+  - name: World
+  - name: Battles
+  - name: Economy
+  - name: Ranking
+  - name: Admin
+paths:
+  /api/v1/auth/register:
+    post:
+      tags: [Auth]
+      operationId: registerAccount
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Conta criada.
+          headers:
+            Location:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AccountResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/auth/login:
+    post:
+      tags: [Auth]
+      operationId: login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginRequest' }
+      responses:
+        '200':
+          description: Sessão criada.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+  /api/v1/auth/refresh:
+    post:
+      tags: [Auth]
+      operationId: refreshSession
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RefreshRequest' }
+      responses:
+        '200':
+          description: Token rotacionado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TokenResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /api/v1/auth/logout:
+    post:
+      tags: [Auth]
+      operationId: logout
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RefreshRequest' }
+      responses:
+        '204': { description: Sessão encerrada ou já encerrada. }
+  /api/v1/me:
+    get:
+      tags: [Profile]
+      operationId: getMyProfile
+      responses:
+        '200':
+          description: Perfil autenticado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AccountResponse' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    patch:
+      tags: [Profile]
+      operationId: updateMyProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [displayName]
+              properties:
+                displayName: { type: string, minLength: 3, maxLength: 32 }
+      responses:
+        '200':
+          description: Perfil atualizado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AccountResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /api/v1/characters:
+    post:
+      tags: [Characters]
+      operationId: createCharacter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateCharacterRequest' }
+      responses:
+        '201':
+          description: Personagem criado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CharacterResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    get:
+      tags: [Characters]
+      operationId: listMyCharacters
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - name: status
+          in: query
+          schema: { type: string, enum: [ACTIVE, ARCHIVED], default: ACTIVE }
+      responses:
+        '200':
+          description: Personagens próprios.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Page'
+                  - type: object
+                    properties:
+                      content:
+                        type: array
+                        items: { $ref: '#/components/schemas/CharacterResponse' }
+  /api/v1/characters/{characterId}:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Characters]
+      operationId: getMyCharacter
+      responses:
+        '200':
+          description: Personagem próprio.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CharacterResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [Characters]
+      operationId: archiveMyCharacter
+      responses:
+        '204': { description: Personagem arquivado. }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/characters/{characterId}/skills:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Characters]
+      operationId: listCharacterSkills
+      responses:
+        '200':
+          description: Habilidades conhecidas.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/SkillResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/characters/{characterId}/inventory:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Inventory]
+      operationId: listInventory
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - name: state
+          in: query
+          schema: { type: string, enum: [OWNED, EQUIPPED] }
+      responses:
+        '200':
+          description: Inventário próprio.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/InventoryResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/characters/{characterId}/equipment/{slot}:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - name: slot
+        in: path
+        required: true
+        schema: { $ref: '#/components/schemas/EquipmentSlot' }
+    put:
+      tags: [Inventory]
+      operationId: equipItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipRequest'
+      responses:
+        '200':
+          description: Equipamento atualizado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CharacterResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+    delete:
+      tags: [Inventory]
+      operationId: unequipItem
+      parameters:
+        - $ref: '#/components/parameters/ExpectedVersionQuery'
+      responses:
+        '200':
+          description: Item desequipado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CharacterResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/characters/{characterId}/inventory/{entryId}/consume:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - $ref: '#/components/parameters/EntryId'
+    post:
+      tags: [Inventory]
+      operationId: consumeItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [expectedVersion]
+              properties:
+                expectedVersion: { type: integer, format: int64, minimum: 0 }
+      responses:
+        '200':
+          description: Item consumido.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CharacterResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/quests:
+    get:
+      tags: [Quests]
+      operationId: listAvailableQuests
+      parameters:
+        - $ref: '#/components/parameters/CharacterIdQuery'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Missões publicadas e elegibilidade.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Page'
+                  - type: object
+                    properties:
+                      content:
+                        type: array
+                        items: { $ref: '#/components/schemas/QuestSummary' }
+  /api/v1/characters/{characterId}/quests:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    get:
+      tags: [Quests]
+      operationId: listCharacterQuests
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [ACTIVE, COMPLETED, FAILED, ABANDONED, REWARDED]
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Instâncias próprias.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Page'
+                  - type: object
+                    properties:
+                      content:
+                        type: array
+                        items: { $ref: '#/components/schemas/QuestInstanceResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/characters/{characterId}/quests/{questCode}/accept:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - name: questCode
+        in: path
+        required: true
+        schema: { type: string, pattern: '^[A-Z0-9_]{3,50}$' }
+    post:
+      tags: [Quests]
+      operationId: acceptQuest
+      responses:
+        '201':
+          description: Missão aceita.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/QuestInstanceResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/quest-instances/{instanceId}/choices:
+    parameters:
+      - $ref: '#/components/parameters/QuestInstanceId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+    post:
+      tags: [Quests]
+      operationId: chooseQuestOption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [choiceCode, expectedVersion]
+              properties:
+                choiceCode: { type: string, pattern: '^[A-Z0-9_]{3,50}$' }
+                expectedVersion: { type: integer, format: int64, minimum: 0 }
+      responses:
+        '200':
+          description: Escolha aplicada.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/QuestInstanceResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/quest-instances/{instanceId}/abandon:
+    parameters:
+      - $ref: '#/components/parameters/QuestInstanceId'
+    post:
+      tags: [Quests]
+      operationId: abandonQuest
+      responses:
+        '200':
+          description: Missão abandonada.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/QuestInstanceResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/quest-instances/{instanceId}/claim:
+    parameters:
+      - $ref: '#/components/parameters/QuestInstanceId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+    post:
+      tags: [Quests]
+      operationId: claimQuestReward
+      responses:
+        '200':
+          description: Recompensa concedida ou resposta original.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/RewardResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/world/locations:
+    get:
+      tags: [World]
+      operationId: listLocations
+      parameters:
+        - $ref: '#/components/parameters/CharacterIdQuery'
+      responses:
+        '200':
+          description: Local atual e destinos permitidos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/LocationResponse' }
+  /api/v1/characters/{characterId}/travel:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+    post:
+      tags: [World]
+      operationId: travel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TravelRequest' }
+      responses:
+        '200':
+          description: Viagem concluída.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TravelResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/characters/{characterId}/battles:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+    post:
+      tags: [Battles]
+      operationId: startBattle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartBattleRequest'
+      responses:
+        '201':
+          description: Batalha iniciada.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BattleResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/battles/{battleId}:
+    parameters:
+      - $ref: '#/components/parameters/BattleId'
+    get:
+      tags: [Battles]
+      operationId: getBattle
+      responses:
+        '200':
+          description: Batalha própria.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BattleResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/battles/{battleId}/actions:
+    parameters:
+      - $ref: '#/components/parameters/BattleId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+    post:
+      tags: [Battles]
+      operationId: executeBattleAction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BattleActionRequest' }
+      responses:
+        '200':
+          description: Ação aplicada ou resposta idempotente.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/BattleResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/merchants/{merchantCode}:
+    parameters:
+      - name: merchantCode
+        in: path
+        required: true
+        schema: { type: string, pattern: '^[A-Z0-9_]{3,50}$' }
+      - $ref: '#/components/parameters/CharacterIdQuery'
+    get:
+      tags: [Economy]
+      operationId: getMerchant
+      responses:
+        '200':
+          description: Comerciante e estoque efetivo.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MerchantResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/characters/{characterId}/purchases:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+    post:
+      tags: [Economy]
+      operationId: buyItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TradeRequest' }
+      responses:
+        '200':
+          description: Compra concluída.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EconomyTransactionResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/characters/{characterId}/sales:
+    parameters:
+      - $ref: '#/components/parameters/CharacterId'
+      - $ref: '#/components/parameters/IdempotencyKey'
+    post:
+      tags: [Economy]
+      operationId: sellItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SellRequest' }
+      responses:
+        '200':
+          description: Venda concluída.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/EconomyTransactionResponse' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/rankings:
+    get:
+      tags: [Ranking]
+      operationId: getRanking
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - name: classCode
+          in: query
+          schema: { type: string, pattern: '^[A-Z0-9_]{3,50}$' }
+      responses:
+        '200':
+          description: Ranking público.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Page'
+                  - type: object
+                    properties:
+                      content:
+                        type: array
+                        items: { $ref: '#/components/schemas/RankingEntryResponse' }
+  /api/v1/admin/content/{contentType}:
+    parameters:
+      - $ref: '#/components/parameters/ContentType'
+    get:
+      tags: [Admin]
+      operationId: listContent
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - name: status
+          in: query
+          schema: { $ref: '#/components/schemas/ContentStatus' }
+      responses:
+        '200':
+          description: Conteúdo administrativo paginado.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Page'
+                  - type: object
+                    properties:
+                      content:
+                        type: array
+                        items: { $ref: '#/components/schemas/ContentVersionResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+    post:
+      tags: [Admin]
+      operationId: createContentDraft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ContentDraftRequest' }
+      responses:
+        '201':
+          description: Rascunho criado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ContentVersionResponse' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/admin/content/{contentType}/{code}/versions/{versionNumber}:
+    parameters:
+      - $ref: '#/components/parameters/ContentType'
+      - $ref: '#/components/parameters/ContentCode'
+      - $ref: '#/components/parameters/VersionNumber'
+    patch:
+      tags: [Admin]
+      operationId: updateContentDraft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              description: Payload tipado pelo contentType; somente DRAFT.
+      responses:
+        '200':
+          description: Rascunho atualizado.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ContentVersionResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/admin/content/{contentType}/{code}/versions/{versionNumber}/validate:
+    parameters:
+      - $ref: '#/components/parameters/ContentType'
+      - $ref: '#/components/parameters/ContentCode'
+      - $ref: '#/components/parameters/VersionNumber'
+    post:
+      tags: [Admin]
+      operationId: validateContentDraft
+      responses:
+        '200':
+          description: Resultado de validação sem publicar.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ContentValidationResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/admin/content/{contentType}/{code}/versions/{versionNumber}/publish:
+    parameters:
+      - $ref: '#/components/parameters/ContentType'
+      - $ref: '#/components/parameters/ContentCode'
+      - $ref: '#/components/parameters/VersionNumber'
+      - $ref: '#/components/parameters/IdempotencyKey'
+    post:
+      tags: [Admin]
+      operationId: publishContent
+      responses:
+        '200':
+          description: Versão publicada.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ContentVersionResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '422': { $ref: '#/components/responses/Unprocessable' }
+  /api/v1/admin/content/{contentType}/{code}/versions/{versionNumber}/archive:
+    parameters:
+      - $ref: '#/components/parameters/ContentType'
+      - $ref: '#/components/parameters/ContentCode'
+      - $ref: '#/components/parameters/VersionNumber'
+    post:
+      tags: [Admin]
+      operationId: archiveContent
+      responses:
+        '200':
+          description: Versão arquivada para novas instâncias.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ContentVersionResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/admin/accounts/{accountId}/status:
+    parameters:
+      - name: accountId
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+    patch:
+      tags: [Admin]
+      operationId: updateAccountStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [status, reason]
+              properties:
+                status: { type: string, enum: [ACTIVE, BLOCKED] }
+                reason: { type: string, minLength: 10, maxLength: 200 }
+      responses:
+        '200':
+          description: Estado atualizado e sessões tratadas.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AccountResponse' }
+        '403': { $ref: '#/components/responses/Forbidden' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, minimum: 0, default: 0 }
+    Size:
+      name: size
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+    CharacterId:
+      name: characterId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    CharacterIdQuery:
+      name: characterId
+      in: query
+      required: true
+      schema: { type: string, format: uuid }
+    EntryId:
+      name: entryId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    BattleId:
+      name: battleId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    QuestInstanceId:
+      name: instanceId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema: { type: string, format: uuid }
+    ExpectedVersionQuery:
+      name: expectedVersion
+      in: query
+      required: true
+      schema: { type: integer, format: int64, minimum: 0 }
+    ContentType:
+      name: contentType
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: [classes, skills, items, enemies, quests, regions, locations, encounters, merchants]
+    ContentCode:
+      name: code
+      in: path
+      required: true
+      schema: { type: string, pattern: '^[A-Z0-9_]{3,50}$' }
+    VersionNumber:
+      name: versionNumber
+      in: path
+      required: true
+      schema: { type: integer, minimum: 1 }
+  responses:
+    BadRequest:
+      description: Entrada inválida.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Unauthorized:
+      description: Autenticação ausente ou inválida.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Forbidden:
+      description: Papel/estado sem permissão.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    NotFound:
+      description: Recurso inexistente ou não pertencente ao ator.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Conflict:
+      description: Conflito de estado, regra, idempotência ou versão.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+    Unprocessable:
+      description: Estrutura válida, conteúdo semanticamente inconsistente.
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/Problem' }
+  schemas:
+    Problem:
+      type: object
+      required: [type, title, status, code, detail, instance, timestamp, traceId]
+      properties:
+        type: { type: string, format: uri }
+        title: { type: string }
+        status: { type: integer }
+        code: { type: string }
+        detail: { type: string }
+        instance: { type: string }
+        timestamp: { type: string, format: date-time }
+        traceId: { type: string }
+        errors:
+          type: array
+          items: { $ref: '#/components/schemas/FieldViolation' }
+    FieldViolation:
+      type: object
+      required: [field, code, message]
+      properties:
+        field: { type: string }
+        code: { type: string }
+        message: { type: string }
+    Page:
+      type: object
+      required: [page, size, totalElements, totalPages, first, last, content]
+      properties:
+        page: { type: integer, minimum: 0 }
+        size: { type: integer, minimum: 1, maximum: 100 }
+        totalElements: { type: integer, format: int64, minimum: 0 }
+        totalPages: { type: integer, minimum: 0 }
+        first: { type: boolean }
+        last: { type: boolean }
+        content: { type: array, items: {} }
+    RegisterRequest:
+      type: object
+      additionalProperties: false
+      required: [email, password, displayName]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        password: { type: string, minLength: 10, maxLength: 72, writeOnly: true }
+        displayName: { type: string, minLength: 3, maxLength: 32 }
+    LoginRequest:
+      type: object
+      additionalProperties: false
+      required: [email, password]
+      properties:
+        email: { type: string, format: email, maxLength: 254 }
+        password: { type: string, minLength: 1, maxLength: 72, writeOnly: true }
+    RefreshRequest:
+      type: object
+      additionalProperties: false
+      required: [refreshToken]
+      properties:
+        refreshToken: { type: string, minLength: 32, writeOnly: true }
+    TokenResponse:
+      type: object
+      required: [accessToken, refreshToken, tokenType, expiresIn]
+      properties:
+        accessToken: { type: string, writeOnly: true }
+        refreshToken: { type: string, writeOnly: true }
+        tokenType: { type: string, enum: [Bearer] }
+        expiresIn: { type: integer, description: Segundos do access token. }
+    AccountResponse:
+      type: object
+      required: [id, email, displayName, role, status, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string, format: email }
+        displayName: { type: string }
+        role: { type: string, enum: [PLAYER, ADMIN] }
+        status: { type: string, enum: [ACTIVE, BLOCKED] }
+        createdAt: { type: string, format: date-time }
+    CreateCharacterRequest:
+      type: object
+      additionalProperties: false
+      required: [name, classCode]
+      properties:
+        name: { type: string, minLength: 3, maxLength: 24, pattern: "^[\\p{L}0-9 '\\-]+$" }
+        classCode: { type: string, enum: [WARRIOR, MAGE, RANGER] }
+    Stats:
+      type: object
+      required: [health, maxHealth, mana, maxMana, attack, defense, speed]
+      properties:
+        health: { type: integer, minimum: 0 }
+        maxHealth: { type: integer, minimum: 1 }
+        mana: { type: integer, minimum: 0 }
+        maxMana: { type: integer, minimum: 0 }
+        attack: { type: integer, minimum: 1 }
+        defense: { type: integer, minimum: 0 }
+        speed: { type: integer, minimum: 1 }
+    CharacterResponse:
+      type: object
+      required: [id, name, classCode, status, level, experience, gold, stats, locationCode, version, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        classCode: { type: string }
+        status: { type: string, enum: [ACTIVE, ARCHIVED] }
+        level: { type: integer, minimum: 1, maximum: 50 }
+        experience: { type: integer, format: int64, minimum: 0 }
+        experienceToNextLevel: { type: integer, format: int64, minimum: 0 }
+        gold: { type: integer, format: int64, minimum: 0 }
+        stats: { $ref: '#/components/schemas/Stats' }
+        locationCode: { type: string }
+        version: { type: integer, format: int64, minimum: 0 }
+        createdAt: { type: string, format: date-time }
+    SkillResponse:
+      type: object
+      required: [code, name, type, manaCost, cooldownTurns, available]
+      properties:
+        code: { type: string }
+        name: { type: string }
+        type: { type: string, enum: [DAMAGE, DEFENSE, HEAL, EFFECT] }
+        manaCost: { type: integer, minimum: 0 }
+        cooldownTurns: { type: integer, minimum: 0 }
+        available: { type: boolean }
+    EquipmentSlot:
+      type: string
+      enum: [WEAPON, HEAD, CHEST, LEGS, ACCESSORY]
+    InventoryEntryResponse:
+      type: object
+      required: [id, itemCode, name, itemType, quantity, state, version]
+      properties:
+        id: { type: string, format: uuid }
+        itemCode: { type: string }
+        name: { type: string }
+        itemType: { type: string, enum: [EQUIPMENT, CONSUMABLE, MATERIAL, QUEST] }
+        rarity: { type: string, enum: [COMMON, UNCOMMON, RARE, EPIC] }
+        quantity: { type: integer, minimum: 1 }
+        state: { type: string, enum: [OWNED, EQUIPPED] }
+        slot: { $ref: '#/components/schemas/EquipmentSlot' }
+        version: { type: integer, format: int64, minimum: 0 }
+    InventoryResponse:
+      type: object
+      required: [usedSlots, capacity, entries]
+      properties:
+        usedSlots: { type: integer, minimum: 0, maximum: 40 }
+        capacity: { type: integer, enum: [40] }
+        entries:
+          type: array
+          items: { $ref: '#/components/schemas/InventoryEntryResponse' }
+    EquipRequest:
+      type: object
+      additionalProperties: false
+      required: [inventoryEntryId, expectedVersion]
+      properties:
+        inventoryEntryId: { type: string, format: uuid }
+        expectedVersion: { type: integer, format: int64, minimum: 0 }
+    QuestSummary:
+      type: object
+      required: [code, title, version, eligible]
+      properties:
+        code: { type: string }
+        title: { type: string }
+        version: { type: integer, minimum: 1 }
+        eligible: { type: boolean }
+        unmetRequirements:
+          type: array
+          items: { type: string }
+    QuestObjectiveResponse:
+      type: object
+      required: [code, description, current, target, completed]
+      properties:
+        code: { type: string }
+        description: { type: string }
+        current: { type: integer, minimum: 0 }
+        target: { type: integer, minimum: 1 }
+        completed: { type: boolean }
+    QuestInstanceResponse:
+      type: object
+      required: [id, questCode, questVersion, status, objectives, version, startedAt]
+      properties:
+        id: { type: string, format: uuid }
+        questCode: { type: string }
+        questVersion: { type: integer, minimum: 1 }
+        status: { type: string, enum: [ACTIVE, COMPLETED, FAILED, ABANDONED, REWARDED] }
+        currentNodeCode: { type: string, nullable: true }
+        availableChoices:
+          type: array
+          items: { type: string }
+        objectives:
+          type: array
+          items: { $ref: '#/components/schemas/QuestObjectiveResponse' }
+        version: { type: integer, format: int64, minimum: 0 }
+        startedAt: { type: string, format: date-time }
+        finishedAt: { type: string, format: date-time, nullable: true }
+    RewardResponse:
+      type: object
+      required: [questInstanceId, experience, gold, items, grantedAt]
+      properties:
+        questInstanceId: { type: string, format: uuid }
+        experience: { type: integer, format: int64, minimum: 0 }
+        gold: { type: integer, format: int64, minimum: 0 }
+        items:
+          type: array
+          items:
+            type: object
+            required: [itemCode, quantity]
+            properties:
+              itemCode: { type: string }
+              quantity: { type: integer, minimum: 1 }
+        grantedAt: { type: string, format: date-time }
+    LocationResponse:
+      type: object
+      required: [code, name, regionCode, safe, current, reachable]
+      properties:
+        code: { type: string }
+        name: { type: string }
+        regionCode: { type: string }
+        safe: { type: boolean }
+        current: { type: boolean }
+        reachable: { type: boolean }
+        travelCost: { type: integer, format: int64, minimum: 0, nullable: true }
+    TravelRequest:
+      type: object
+      additionalProperties: false
+      required: [destinationCode, expectedVersion]
+      properties:
+        destinationCode: { type: string, pattern: '^[A-Z0-9_]{3,50}$' }
+        expectedVersion: { type: integer, format: int64, minimum: 0 }
+    TravelResponse:
+      type: object
+      required: [originCode, destinationCode, cost, goldAfter, traveledAt]
+      properties:
+        originCode: { type: string }
+        destinationCode: { type: string }
+        cost: { type: integer, format: int64, minimum: 0 }
+        goldAfter: { type: integer, format: int64, minimum: 0 }
+        encounter:
+          nullable: true
+          allOf: [{ $ref: '#/components/schemas/EncounterResponse' }]
+        traveledAt: { type: string, format: date-time }
+    EncounterResponse:
+      type: object
+      required: [id, enemyCode, enemyName, boss]
+      properties:
+        id: { type: string, format: uuid }
+        enemyCode: { type: string }
+        enemyName: { type: string }
+        boss: { type: boolean }
+    StartBattleRequest:
+      type: object
+      additionalProperties: false
+      required: [expectedCharacterVersion]
+      properties:
+        encounterId: { type: string, format: uuid, nullable: true }
+        enemyCode: { type: string, nullable: true, description: Permitido apenas em arena/fluxo elegível. }
+        expectedCharacterVersion: { type: integer, format: int64, minimum: 0 }
+    BattleActionRequest:
+      type: object
+      additionalProperties: false
+      required: [actionType, expectedVersion]
+      properties:
+        actionType: { type: string, enum: [BASIC_ATTACK, DEFEND, SKILL, USE_ITEM, FLEE] }
+        skillCode: { type: string, nullable: true }
+        inventoryEntryId: { type: string, format: uuid, nullable: true }
+        expectedVersion: { type: integer, format: int64, minimum: 0 }
+    CombatantResponse:
+      type: object
+      required: [side, name, level, stats, defeated]
+      properties:
+        side: { type: string, enum: [PLAYER, ENEMY] }
+        name: { type: string }
+        level: { type: integer, minimum: 1 }
+        stats: { $ref: '#/components/schemas/Stats' }
+        defeated: { type: boolean }
+    BattleEventResponse:
+      type: object
+      required: [sequence, turnNumber, actor, eventType, occurredAt]
+      properties:
+        sequence: { type: integer, minimum: 1 }
+        turnNumber: { type: integer, minimum: 1 }
+        actor: { type: string, enum: [PLAYER, ENEMY, SYSTEM] }
+        eventType: { type: string }
+        actionType: { type: string, nullable: true }
+        amount: { type: integer, nullable: true }
+        occurredAt: { type: string, format: date-time }
+    BattleResponse:
+      type: object
+      required: [id, characterId, status, currentTurn, turnNumber, participants, events, version, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        characterId: { type: string, format: uuid }
+        status: { type: string, enum: [CREATED, IN_PROGRESS, WON, LOST, FLED, CANCELLED] }
+        currentTurn: { type: string, enum: [PLAYER, ENEMY], nullable: true }
+        turnNumber: { type: integer, minimum: 1 }
+        participants:
+          type: array
+          minItems: 2
+          maxItems: 2
+          items: { $ref: '#/components/schemas/CombatantResponse' }
+        events:
+          type: array
+          items: { $ref: '#/components/schemas/BattleEventResponse' }
+        version: { type: integer, format: int64, minimum: 0 }
+        createdAt: { type: string, format: date-time }
+        finishedAt: { type: string, format: date-time, nullable: true }
+    MerchantStockResponse:
+      type: object
+      required: [itemCode, itemName, quantity, buyPrice, sellPrice, version]
+      properties:
+        itemCode: { type: string }
+        itemName: { type: string }
+        quantity: { type: integer, minimum: 0 }
+        buyPrice: { type: integer, format: int64, minimum: 0 }
+        sellPrice: { type: integer, format: int64, minimum: 0 }
+        version: { type: integer, format: int64, minimum: 0 }
+    MerchantResponse:
+      type: object
+      required: [code, name, locationCode, stock]
+      properties:
+        code: { type: string }
+        name: { type: string }
+        locationCode: { type: string }
+        stock:
+          type: array
+          items: { $ref: '#/components/schemas/MerchantStockResponse' }
+    TradeRequest:
+      type: object
+      additionalProperties: false
+      required: [merchantCode, itemCode, quantity, expectedCharacterVersion, expectedStockVersion]
+      properties:
+        merchantCode: { type: string }
+        itemCode: { type: string }
+        quantity: { type: integer, minimum: 1, maximum: 99 }
+        expectedCharacterVersion: { type: integer, format: int64, minimum: 0 }
+        expectedStockVersion: { type: integer, format: int64, minimum: 0 }
+    SellRequest:
+      type: object
+      additionalProperties: false
+      required: [merchantCode, inventoryEntryId, quantity, expectedCharacterVersion, expectedEntryVersion]
+      properties:
+        merchantCode: { type: string }
+        inventoryEntryId: { type: string, format: uuid }
+        quantity: { type: integer, minimum: 1, maximum: 99 }
+        expectedCharacterVersion: { type: integer, format: int64, minimum: 0 }
+        expectedEntryVersion: { type: integer, format: int64, minimum: 0 }
+    EconomyTransactionResponse:
+      type: object
+      required: [id, type, itemCode, quantity, unitPrice, total, goldAfter, stockAfter, occurredAt]
+      properties:
+        id: { type: string, format: uuid }
+        type: { type: string, enum: [BUY, SELL] }
+        itemCode: { type: string }
+        quantity: { type: integer, minimum: 1 }
+        unitPrice: { type: integer, format: int64, minimum: 0 }
+        total: { type: integer, format: int64, minimum: 0 }
+        goldAfter: { type: integer, format: int64, minimum: 0 }
+        stockAfter: { type: integer, minimum: 0 }
+        occurredAt: { type: string, format: date-time }
+    RankingEntryResponse:
+      type: object
+      required: [position, characterName, classCode, level, wins, losses]
+      properties:
+        position: { type: integer, minimum: 1 }
+        characterName: { type: string }
+        classCode: { type: string }
+        level: { type: integer, minimum: 1, maximum: 50 }
+        wins: { type: integer, minimum: 0 }
+        losses: { type: integer, minimum: 0 }
+    ContentStatus:
+      type: string
+      enum: [DRAFT, PUBLISHED, ARCHIVED]
+    ContentDraftRequest:
+      type: object
+      additionalProperties: false
+      required: [code, payload]
+      properties:
+        code: { type: string, pattern: '^[A-Z0-9_]{3,50}$' }
+        payload:
+          type: object
+          additionalProperties: true
+    ContentVersionResponse:
+      type: object
+      required: [id, type, code, version, status, payload, createdBy, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        type: { type: string }
+        code: { type: string }
+        version: { type: integer, minimum: 1 }
+        status: { $ref: '#/components/schemas/ContentStatus' }
+        payload: { type: object, additionalProperties: true }
+        createdBy: { type: string, format: uuid }
+        createdAt: { type: string, format: date-time }
+        publishedAt: { type: string, format: date-time, nullable: true }
+    ContentValidationResponse:
+      type: object
+      required: [valid, errors]
+      properties:
+        valid: { type: boolean }
+        errors:
+          type: array
+          items: { $ref: '#/components/schemas/FieldViolation' }
+security:
+  - bearerAuth: []

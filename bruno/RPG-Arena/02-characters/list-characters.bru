@@ -1,0 +1,19 @@
+meta {
+  name: List Characters
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/v1/characters?page=0&size=20&status=ACTIVE
+  body: none
+  auth: inherit
+}
+
+tests {
+  test("lista é paginada", function () {
+    expect(res.status).to.equal(200);
+    expect(res.body.content).to.be.an("array");
+    expect(res.body.size).to.be.at.most(100);
+  });
+}

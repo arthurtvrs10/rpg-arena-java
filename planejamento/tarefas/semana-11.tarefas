@@ -1,0 +1,74 @@
+SEMANA 11 - CONTAS, JWT E SESSÕES
+PERIODO: 02/11/2026 A 08/11/2026
+CARGA: 29 HORAS
+OBJETIVO: Autenticar sem expor credenciais e preparar autorização real.
+ENTREGA: Cadastro, login, refresh e logout seguros.
+CONTEUDO: EPISODIO 06 / SHORT 11
+
+TAREFAS
+=======
+
+[ ] RPG-M3-W11-01 - Modelar Account e roles
+    AREA: Conta | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Implemente email normalizado, passwordHash, status e roles PLAYER/ADMIN; adicione unique e timestamps.
+    ACEITE: Email é único e conta bloqueada não autentica.
+    EVIDENCIA: account domain e migration
+    FONTE: Spring Security Reference - https://docs.spring.io/spring-security/reference/
+    DEPENDENCIA: RPG-M3-W10-06
+
+[ ] RPG-M3-W11-02 - Implementar cadastro
+    AREA: Segurança | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Valide senha, use PasswordEncoder e respostas neutras; nunca registre senha.
+    ACEITE: Banco só armazena hash e logs/responses não contêm segredo.
+    EVIDENCIA: POST /api/v1/auth/register
+    FONTE: OWASP Cheat Sheet Series - https://cheatsheetseries.owasp.org/
+    DEPENDENCIA: RPG-M3-W11-01
+
+[ ] RPG-M3-W11-03 - Implementar login JWT
+    AREA: Segurança | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Emita access token curto com sub, roles, issuer e audience; valide assinatura e expiração.
+    ACEITE: Tokens adulterados, expirados ou de issuer incorreto são rejeitados.
+    EVIDENCIA: POST /api/v1/auth/login
+    FONTE: RFC 7519 - JSON Web Token - https://www.rfc-editor.org/rfc/rfc7519
+    DEPENDENCIA: RPG-M3-W11-02
+
+[ ] RPG-M3-W11-04 - Implementar refresh rotativo
+    AREA: Sessão | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Persista hash do refresh, família, expiração e revogação; detecte reutilização.
+    ACEITE: Refresh reutilizado revoga a família e logout encerra a sessão.
+    EVIDENCIA: refresh_token table e endpoints
+    FONTE: Spring Security Reference - https://docs.spring.io/spring-security/reference/
+    DEPENDENCIA: RPG-M3-W11-03
+
+[ ] RPG-M3-W11-05 - Criar matriz de permissões
+    AREA: Autorização | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Defina público, autenticado, owner e ADMIN por endpoint e comando; configure deny by default.
+    ACEITE: Matriz cobre todos os recursos e tem testes allow/deny.
+    EVIDENCIA: docs/security/access-matrix.md
+    FONTE: Spring Security Reference - https://docs.spring.io/spring-security/reference/
+    DEPENDENCIA: RPG-M3-W11-04
+
+[ ] RPG-M3-W11-06 - Produzir Short 11 e capturar episódio 6
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Grave hash, access vs refresh e um token adulterado sendo recusado.
+    ACEITE: Short publicado e cenas de segurança não exibem segredo real.
+    EVIDENCIA: youtube/ep-06/raw e Short 11
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M3-W11-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(conta): complete week 11 core work
+- test: cover week 11 acceptance criteria
+- docs: document week 11 decisions and evidence

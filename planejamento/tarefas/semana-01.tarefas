@@ -1,0 +1,74 @@
+SEMANA 01 - PRODUTO, ESCOPO E REPOSITÓRIO
+PERIODO: 24/08/2026 A 30/08/2026
+CARGA: 20 HORAS
+OBJETIVO: Transformar a ideia em um produto executável e público.
+ENTREGA: Repositório preparado, backlog priorizado e escopo fechado.
+CONTEUDO: EPISODIO 01 / SHORT 01
+
+TAREFAS
+=======
+
+[ ] RPG-M1-W01-01 - Definir visão e público
+    AREA: Produto | TIPO: Produto | PRIORIDADE: Crítica | HORAS: 3
+    FAZER: Escreva a proposta, público, fantasia central, diferencial educacional e resultado esperado em uma página.
+    ACEITE: A visão responde para quem, por quê, o que será entregue e como medir sucesso.
+    EVIDENCIA: docs/product/vision.md
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: Nenhuma
+
+[ ] RPG-M1-W01-02 - Fechar MVP e não objetivos
+    AREA: Requisitos | TIPO: Produto | PRIORIDADE: Crítica | HORAS: 3
+    FAZER: Inclua conta, personagem, combate, inventário, progressão, missão, mundo e economia; exclua UI gráfica, multiplayer, Kafka e microserviços.
+    ACEITE: Todo item do MVP cabe em um dos seis marcos e o fora de escopo está explícito.
+    EVIDENCIA: docs/product/scope.md
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M1-W01-01
+
+[ ] RPG-M1-W01-03 - Descrever jornadas e glossário
+    AREA: Requisitos | TIPO: Documentação | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Modele criar conta, criar personagem, lutar, obter item, evoluir, viajar, comprar e concluir missão; defina termos do jogo.
+    ACEITE: Cada jornada tem fluxo principal, falhas, pré-condições e resultado.
+    EVIDENCIA: docs/requirements/journeys.md e glossary.md
+    FONTE: Mermaid Documentation - https://mermaid.js.org/
+    DEPENDENCIA: RPG-M1-W01-02
+
+[ ] RPG-M1-W01-04 - Criar repositório e metadados
+    AREA: GitHub | TIPO: Git/GitHub | PRIORIDADE: Crítica | HORAS: 3
+    FAZER: Use nome rpg-arena, descrição, topics, licença MIT, .gitignore Java, main protegida e squash merge.
+    ACEITE: Repositório público apresenta descrição, licença, topics e regras de merge.
+    EVIDENCIA: Repositório GitHub configurado
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M1-W01-03
+
+[ ] RPG-M1-W01-05 - Criar backlog, DoR e DoD
+    AREA: Gestão | TIPO: Gestão | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Transforme o escopo em issues; adote Ready, In Progress, Review e Done; registre critérios para iniciar e concluir.
+    ACEITE: Todas as issues do mês 1 têm aceite, prioridade, tamanho e evidência.
+    EVIDENCIA: GitHub Project e docs/process.md
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M1-W01-04
+
+[ ] RPG-M1-W01-06 - Preparar identidade e trailer da série
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 3
+    FAZER: Defina nome da série, padrão de thumbnail, tela de código, vinheta curta e grave um trailer de 45-60 segundos.
+    ACEITE: Trailer explica o desafio de seis meses e aponta para o repositório.
+    EVIDENCIA: youtube/trailer e brand-guide.md
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M1-W01-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(produto): complete week 01 core work
+- test: cover week 01 acceptance criteria
+- docs: document week 01 decisions and evidence

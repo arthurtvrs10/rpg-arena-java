@@ -1,0 +1,74 @@
+SEMANA 09 - CONTRATO REST, DTOS E BRUNO
+PERIODO: 19/10/2026 A 25/10/2026
+CARGA: 25 HORAS
+OBJETIVO: Criar uma API previsível antes de expor todos os recursos.
+ENTREGA: Padrão HTTP, erros, validação e coleção Bruno.
+CONTEUDO: EPISODIO 05 / SHORT 09
+
+TAREFAS
+=======
+
+[ ] RPG-M3-W09-01 - Definir convenções REST
+    AREA: API | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Padronize recursos, verbos, status, paginação, ordenação, datas, UUID, versionamento e idempotency-key.
+    ACEITE: Documento possui exemplos de sucesso e erro para cada convenção.
+    EVIDENCIA: docs/api/conventions.md
+    FONTE: MDN HTTP - https://developer.mozilla.org/en-US/docs/Web/HTTP
+    DEPENDENCIA: RPG-M2-W08-06
+
+[ ] RPG-M3-W09-02 - Criar DTOs e mapeadores
+    AREA: API | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Separe request/response do domínio e JPA; crie mappers testados e respostas sem dados internos.
+    ACEITE: Nenhum controller retorna entidade JPA ou senha/token indevido.
+    EVIDENCIA: interfaces/rest/dto e mapper
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M3-W09-01
+
+[ ] RPG-M3-W09-03 - Implementar validação em camadas
+    AREA: Validação | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Use Bean Validation para formato e domínio para regras; padronize mensagens e campos.
+    ACEITE: Payload inválido retorna 400 com lista de violações estável.
+    EVIDENCIA: Validation annotations e tests
+    FONTE: Spring Framework Validation - https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html
+    DEPENDENCIA: RPG-M3-W09-02
+
+[ ] RPG-M3-W09-04 - Criar Problem Details global
+    AREA: Erros | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Implemente code, title, detail, status, path, timestamp, correlationId e fieldErrors.
+    ACEITE: 400, 401, 403, 404, 409 e 500 seguem o mesmo formato.
+    EVIDENCIA: GlobalExceptionHandler
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M3-W09-03
+
+[ ] RPG-M3-W09-05 - Montar coleção e ambientes
+    AREA: Bruno | TIPO: Testes | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Crie local/public, baseUrl, token, pastas por recurso e asserts de status/body; versione com o código.
+    ACEITE: Collection Runner executa health e primeiro CRUD sem editar URL.
+    EVIDENCIA: bruno/RPG-Arena
+    FONTE: Bruno Documentation - https://docs.usebruno.com/
+    DEPENDENCIA: RPG-M3-W09-04
+
+[ ] RPG-M3-W09-06 - Produzir Short 9 e capturar episódio 5
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Mostre DTO vs entidade, erro padronizado e ambiente Bruno.
+    ACEITE: Short publicado e requests principais gravados em 1080p.
+    EVIDENCIA: youtube/ep-05/raw e Short 09
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M3-W09-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(api): complete week 09 core work
+- test: cover week 09 acceptance criteria
+- docs: document week 09 decisions and evidence

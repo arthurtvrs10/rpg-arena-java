@@ -1,0 +1,12 @@
+auth {
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+headers {
+  Accept: application/json
+  X-Correlation-ID: {{$guid}}
+}

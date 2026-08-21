@@ -1,0 +1,69 @@
+name: Requisito / fatia vertical
+description: Implementação rastreável de um requisito do RPG Arena
+title: "[REQ] "
+labels: ["requirement", "needs-refinement"]
+body:
+  - type: input
+    id: requirement
+    attributes:
+      label: Requisito(s)
+      description: Informe códigos RF/RNF.
+      placeholder: RF-CBT-004, RNF-CON-001
+    validations:
+      required: true
+  - type: input
+    id: rules
+    attributes:
+      label: Regra(s) de negócio
+      placeholder: RN-CBT-005, RN-CBT-017
+    validations:
+      required: true
+  - type: input
+    id: use_case
+    attributes:
+      label: Caso de uso e história
+      placeholder: UC-12 / US-CBT-02
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Comportamento e valor
+      description: Quem se beneficia, o que muda e qual a menor fatia demonstrável.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critérios de aceite
+      description: Copie/adapte os cenários BDD aplicáveis.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impactos
+      description: API, banco, segurança, transação, idempotência, concorrência e documentação.
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Testes e evidências
+      description: Tipos de teste, Bruno, logs, screenshots ou relatório exigido.
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridade
+      options: [Must, Should, Could]
+    validations:
+      required: true
+  - type: input
+    id: week
+    attributes:
+      label: Semana e release
+      placeholder: Semana 12 / v0.3.0
+    validations:
+      required: true

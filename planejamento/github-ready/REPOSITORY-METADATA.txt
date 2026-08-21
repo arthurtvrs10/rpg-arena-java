@@ -1,0 +1,7 @@
+Repository name: rpg-arena-java
+Description: Open-source turn-based RPG backend built with Java 21 and Spring Boot to practice domain modeling, REST APIs, PostgreSQL, security, testing, Docker, and software architecture.
+Visibility: Public
+License: MIT
+Topics: java, spring-boot, postgresql, ddd, rest-api, spring-security, jwt, docker, junit, testcontainers, open-source, rpg, turn-based-game, backend, software-architecture
+Website: add the public Swagger or project page after deployment
+Social preview: 1280x640, dark ink background, violet/gold accents, title RPG ARENA and subtitle JAVA BACKEND SERIES

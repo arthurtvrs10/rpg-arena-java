@@ -1,0 +1,22 @@
+erDiagram
+    ACCOUNT ||--o{ REFRESH_TOKEN : owns
+    ACCOUNT ||--o{ CHARACTER : owns
+    CHARACTER_CLASS_VERSION ||--o{ CHARACTER : initializes
+    CHARACTER ||--o{ INVENTORY_ENTRY : contains
+    ITEM_VERSION ||--o{ INVENTORY_ENTRY : describes
+    CHARACTER ||--o{ EQUIPMENT : equips
+    CHARACTER ||--o{ CHARACTER_SKILL : learns
+    SKILL_VERSION ||--o{ CHARACTER_SKILL : describes
+    CHARACTER ||--o{ BATTLE : starts
+    BATTLE ||--o{ BATTLE_PARTICIPANT : snapshots
+    BATTLE ||--o{ BATTLE_EVENT : records
+    QUEST_VERSION ||--o{ QUEST_INSTANCE : instantiates
+    CHARACTER ||--o{ QUEST_INSTANCE : performs
+    QUEST_INSTANCE ||--o{ QUEST_OBJECTIVE_PROGRESS : tracks
+    LOCATION_VERSION ||--o{ CHARACTER_LOCATION : positions
+    CHARACTER ||--|| CHARACTER_LOCATION : has
+    LOCATION_VERSION ||--o{ LOCATION_EDGE : origin
+    MERCHANT_VERSION ||--o{ MERCHANT_STOCK : owns
+    CHARACTER ||--o{ ECONOMY_TRANSACTION : performs
+    CHARACTER ||--|| RANKING_ENTRY : projects
+    ACCOUNT ||--o{ AUDIT_EVENT : causes

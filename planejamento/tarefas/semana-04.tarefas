@@ -1,0 +1,74 @@
+SEMANA 04 - MOTOR DE COMBATE DETERMINÍSTICO
+PERIODO: 14/09/2026 A 20/09/2026
+CARGA: 31 HORAS
+OBJETIVO: Entregar a primeira versão jogável com regras testáveis.
+ENTREGA: Batalha completa e release v0.1.0.
+CONTEUDO: EPISODIO 02 / SHORT 04
+
+TAREFAS
+=======
+
+[ ] RPG-M1-W04-01 - Especificar regras de combate
+    AREA: Game design | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Defina iniciativa, turnos, ataque, defesa, crítico, habilidade, fuga, vitória, derrota e empate com exemplos numéricos.
+    ACEITE: Fórmulas, arredondamentos e casos extremos não possuem ambiguidade.
+    EVIDENCIA: docs/game-design/combat.md
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M1-W03-06
+
+[ ] RPG-M1-W04-02 - Criar políticas de dano e aleatoriedade
+    AREA: Combate | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Separe DamagePolicy e RandomSource; injete seed/fake nos testes e proíba Math.random fora do adapter.
+    ACEITE: Mesma semente produz o mesmo histórico e dano nunca fica abaixo do mínimo.
+    EVIDENCIA: combat/domain/policy
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M1-W04-01
+
+[ ] RPG-M1-W04-03 - Modelar Battle e Turn
+    AREA: Combate | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Crie participantes, rodada, turno atual, estado, histórico e resultado como agregado.
+    ACEITE: Só o participante correto age e batalha encerrada é imutável.
+    EVIDENCIA: combat/domain/model
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M1-W04-02
+
+[ ] RPG-M1-W04-04 - Implementar ações e efeitos
+    AREA: Combate | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Implemente ataque, defesa, habilidade, item, fuga e efeitos poison/stun com duração controlada.
+    ACEITE: Cada ação valida custo/alvo e gera evento de batalha auditável.
+    EVIDENCIA: combat/domain/action e effect
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M1-W04-03
+
+[ ] RPG-M1-W04-05 - Fechar suíte e release v0.1
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Teste vitória, derrota, crítico, dano mínimo, fuga, turno inválido, cooldown e status; atualize changelog e tag.
+    ACEITE: Suite reproduz batalha completa e release v0.1.0 pode ser executada pelo README.
+    EVIDENCIA: Tests, CHANGELOG e release v0.1.0
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M1-W04-04
+
+[ ] RPG-M1-W04-06 - Publicar episódio 2
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Conte a evolução do domínio anêmico para Character e Battle ricos; mostre testes determinísticos e demo final.
+    ACEITE: Vídeo publicado com capítulos, thumbnail e link para v0.1.0.
+    EVIDENCIA: Episódio 2 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M1-W04-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(game-design): complete week 04 core work
+- test: cover week 04 acceptance criteria
+- docs: document week 04 decisions and evidence

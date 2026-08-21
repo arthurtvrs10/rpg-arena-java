@@ -1,0 +1,74 @@
+SEMANA 20 - OBSERVABILIDADE, DESEMPENHO E SEGURANÇA
+PERIODO: 04/01/2027 A 10/01/2027
+CARGA: 32 HORAS
+OBJETIVO: Transformar a aplicação em candidato a produção.
+ENTREGA: Logs, métricas, revisão OWASP e release candidate.
+CONTEUDO: EPISODIO 10 / SHORT 20
+
+TAREFAS
+=======
+
+[ ] RPG-M5-W20-01 - Implementar logs estruturados
+    AREA: Logs | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Padronize level, correlationId, operation, duração e ids seguros; remova tokens/senhas.
+    ACEITE: Uma requisição é rastreável do HTTP ao banco sem dado sensível.
+    EVIDENCIA: Logging configuration
+    FONTE: Spring Boot Actuator - https://docs.spring.io/spring-boot/reference/actuator/
+    DEPENDENCIA: RPG-M5-W19-06
+
+[ ] RPG-M5-W20-02 - Adicionar métricas técnicas e de negócio
+    AREA: Métricas | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Exponha latência, erros, pool, batalhas, vitórias e falhas com tags de baixa cardinalidade.
+    ACEITE: Métricas respondem e não criam cardinalidade por usuário/personagem.
+    EVIDENCIA: Micrometer metrics
+    FONTE: Micrometer Reference - https://docs.micrometer.io/micrometer/reference/
+    DEPENDENCIA: RPG-M5-W20-01
+
+[ ] RPG-M5-W20-03 - Analisar queries e índices
+    AREA: Desempenho | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Detecte N+1, use EXPLAIN ANALYZE em consultas críticas e ajuste índices com evidência.
+    ACEITE: Relatório compara plano antes/depois e remove N+1.
+    EVIDENCIA: docs/performance/database.md
+    FONTE: PostgreSQL Documentation - https://www.postgresql.org/docs/current/
+    DEPENDENCIA: RPG-M5-W20-02
+
+[ ] RPG-M5-W20-04 - Executar revisão OWASP
+    AREA: Segurança | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Revise auth, autorização, validação, CORS, headers, rate limit, logs, segredos e dependências.
+    ACEITE: Checklist possui evidência e issue para cada risco restante.
+    EVIDENCIA: docs/security/review.md
+    FONTE: OWASP Cheat Sheet Series - https://cheatsheetseries.owasp.org/
+    DEPENDENCIA: RPG-M5-W20-03
+
+[ ] RPG-M5-W20-05 - Criar quality gates e RC
+    AREA: CI/Release | TIPO: Entrega | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Execute testes, cobertura, ArchUnit, build Docker e scan de dependências; publique v1.0.0-rc.1.
+    ACEITE: Main só recebe merge verde e RC passa regressão completa.
+    EVIDENCIA: Workflow e release candidate
+    FONTE: GitHub Actions - https://docs.github.com/actions
+    DEPENDENCIA: RPG-M5-W20-04
+
+[ ] RPG-M5-W20-06 - Publicar episódio 10
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre logs, métricas, N+1, EXPLAIN, checklist OWASP e quality gates.
+    ACEITE: Vídeo publicado com resultados antes/depois e limites honestos.
+    EVIDENCIA: Episódio 10 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M5-W20-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(logs): complete week 20 core work
+- test: cover week 20 acceptance criteria
+- docs: document week 20 decisions and evidence

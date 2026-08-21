@@ -1,0 +1,74 @@
+SEMANA 23 - ESTABILIZAÇÃO E RELEASE CANDIDATE
+PERIODO: 25/01/2027 A 31/01/2027
+CARGA: 33 HORAS
+OBJETIVO: Eliminar bloqueadores antes da versão 1.0.
+ENTREGA: RC aprovada, changelog e relatório de carga.
+CONTEUDO: EPISODIO 12 / SHORT 23
+
+TAREFAS
+=======
+
+[ ] RPG-M6-W23-01 - Executar bug bash
+    AREA: Qualidade | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Teste jornadas, concorrência, payload hostil, indisponibilidade e permissões; abra issues com severidade.
+    ACEITE: Cada falha possui passos, evidência, impacto e decisão.
+    EVIDENCIA: Milestone v1.0 bug bash
+    FONTE: Bruno Documentation - https://docs.usebruno.com/
+    DEPENDENCIA: RPG-M6-W22-06
+
+[ ] RPG-M6-W23-02 - Resolver blockers e regressões
+    AREA: Correções | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 8
+    FAZER: Trabalhe em PRs pequenos; toda correção crítica recebe teste de regressão.
+    ACEITE: Nenhum blocker/critical fica aberto e CI permanece verde.
+    EVIDENCIA: PRs de estabilização
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M6-W23-01
+
+[ ] RPG-M6-W23-03 - Executar teste de carga mínimo
+    AREA: Carga | TIPO: Testes | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Defina cenário, volume, ambiente e percentis; teste leitura e comando sem derrubar dados reais.
+    ACEITE: Relatório contém p50/p95/p99, erros, gargalo e limite conhecido.
+    EVIDENCIA: docs/performance/load-test.md
+    FONTE: Spring Boot Actuator - https://docs.spring.io/spring-boot/reference/actuator/
+    DEPENDENCIA: RPG-M6-W23-02
+
+[ ] RPG-M6-W23-04 - Fazer revisão final
+    AREA: Segurança | TIPO: Segurança | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Revalide secrets, permissões, dependências, rate limit, logs e endpoints administrativos.
+    ACEITE: Nenhum finding crítico/alto permanece sem mitigação documentada.
+    EVIDENCIA: docs/security/final-review.md
+    FONTE: OWASP Cheat Sheet Series - https://cheatsheetseries.owasp.org/
+    DEPENDENCIA: RPG-M6-W23-03
+
+[ ] RPG-M6-W23-05 - Preparar changelog e upgrade
+    AREA: Release | TIPO: Entrega | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Organize Added, Changed, Fixed, Security, breaking changes e instruções de migração.
+    ACEITE: Changelog reconcilia PRs e um usuário da v0.4 atualiza para RC.
+    EVIDENCIA: CHANGELOG.md e v1.0 checklist
+    FONTE: Keep a Changelog - https://keepachangelog.com/en/1.1.0/
+    DEPENDENCIA: RPG-M6-W23-04
+
+[ ] RPG-M6-W23-06 - Produzir Short 23 e capturar episódio final
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Grave bug real, teste de regressão, carga e checklist de release.
+    ACEITE: Short publicado e demo final possui backup de gravação.
+    EVIDENCIA: youtube/ep-12/raw e Short 23
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M6-W23-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(qualidade): complete week 23 core work
+- test: cover week 23 acceptance criteria
+- docs: document week 23 decisions and evidence

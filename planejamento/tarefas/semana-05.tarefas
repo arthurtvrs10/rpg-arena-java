@@ -1,0 +1,74 @@
+SEMANA 05 - POSTGRESQL, FLYWAY E REPOSITORIES
+PERIODO: 21/09/2026 A 27/09/2026
+CARGA: 29 HORAS
+OBJETIVO: Persistir o núcleo sem contaminar o domínio.
+ENTREGA: Banco criado por migrations e repositories testados.
+CONTEUDO: EPISODIO 03 / SHORT 05
+
+TAREFAS
+=======
+
+[ ] RPG-M2-W05-01 - Desenhar modelo relacional
+    AREA: Banco | TIPO: Banco de dados | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Mapeie account, character, stats, battle e battle_event; defina PK, FK, unique, checks e índices iniciais.
+    ACEITE: ERD corresponde aos agregados e cada constraint tem justificativa.
+    EVIDENCIA: docs/database/erd-v1.drawio e PNG
+    FONTE: PostgreSQL Documentation - https://www.postgresql.org/docs/current/
+    DEPENDENCIA: RPG-M1-W04-06
+
+[ ] RPG-M2-W05-02 - Criar baseline Flyway
+    AREA: Migrations | TIPO: Banco de dados | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Crie schema e migrations V1-V3 para personagens e batalhas; mantenha scripts imutáveis após aplicação.
+    ACEITE: Banco vazio chega ao schema atual apenas ao iniciar a aplicação.
+    EVIDENCIA: src/main/resources/db/migration
+    FONTE: Flyway Documentation - https://documentation.red-gate.com/fd
+    DEPENDENCIA: RPG-M2-W05-01
+
+[ ] RPG-M2-W05-03 - Mapear entidades JPA
+    AREA: Persistência | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Crie modelos de persistência e mappers separados das entidades de domínio; configure UUID, version e timestamps.
+    ACEITE: O pacote domain não importa jakarta.persistence e round-trip mantém dados.
+    EVIDENCIA: character/combat infrastructure persistence
+    FONTE: Spring Data JPA Reference - https://docs.spring.io/spring-data/jpa/reference/
+    DEPENDENCIA: RPG-M2-W05-02
+
+[ ] RPG-M2-W05-04 - Implementar adapters de repositório
+    AREA: Persistência | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Implemente portas com Spring Data internamente; trate not found, unique e lock sem vazar DataAccessException.
+    ACEITE: Casos de uso trabalham somente com interfaces do domínio/aplicação.
+    EVIDENCIA: Repository adapters
+    FONTE: Spring Data JPA Reference - https://docs.spring.io/spring-data/jpa/reference/
+    DEPENDENCIA: RPG-M2-W05-03
+
+[ ] RPG-M2-W05-05 - Testar com PostgreSQL real
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Use Testcontainers para migrations, save/load, constraints, versionamento e consultas de histórico.
+    ACEITE: Testes não usam H2 e executam localmente e no CI.
+    EVIDENCIA: Persistence integration tests
+    FONTE: Testcontainers for Java - https://java.testcontainers.org/
+    DEPENDENCIA: RPG-M2-W05-04
+
+[ ] RPG-M2-W05-06 - Produzir Short 5 e capturar episódio 3
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Mostre por que não expor JPA no domínio, migration real e banco nascendo do zero.
+    ACEITE: Short publicado e gravações de migration/repository separadas por cena.
+    EVIDENCIA: youtube/ep-03/raw e Short 05
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M2-W05-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(banco): complete week 05 core work
+- test: cover week 05 acceptance criteria
+- docs: document week 05 decisions and evidence

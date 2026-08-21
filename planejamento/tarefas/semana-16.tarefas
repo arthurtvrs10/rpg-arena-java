@@ -1,0 +1,74 @@
+SEMANA 16 - ADMINISTRAÇÃO E PUBLICAÇÃO DE CONTEÚDO
+PERIODO: 07/12/2026 A 13/12/2026
+CARGA: 32 HORAS
+OBJETIVO: Gerenciar conteúdo sem editar o banco manualmente.
+ENTREGA: API administrativa e release v0.4.0.
+CONTEUDO: EPISODIO 08 / SHORT 16
+
+TAREFAS
+=======
+
+[ ] RPG-M4-W16-01 - Definir RBAC administrativo
+    AREA: Segurança | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Mapeie permissões para itens, missões, locais, NPCs, publicação e auditoria; negue por padrão.
+    ACEITE: PLAYER não acessa endpoints admin e testes cobrem cada permissão.
+    EVIDENCIA: docs/security/admin-matrix.md
+    FONTE: Spring Security Reference - https://docs.spring.io/spring-security/reference/
+    DEPENDENCIA: RPG-M4-W15-06
+
+[ ] RPG-M4-W16-02 - Criar CRUD de conteúdo
+    AREA: Admin | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 7
+    FAZER: Implemente criar, editar, consultar e desativar itens, missões, locais e comerciantes.
+    ACEITE: Operações usam DTO, validação, paginação e auditoria.
+    EVIDENCIA: /api/v1/admin
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M4-W16-01
+
+[ ] RPG-M4-W16-03 - Criar rascunho e publish
+    AREA: Publicação | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Separe DRAFT, PUBLISHED e ARCHIVED; valide conteúdo inteiro antes de publicar.
+    ACEITE: Somente versão válida fica ativa e instâncias antigas mantêm referência.
+    EVIDENCIA: ContentPublicationService
+    FONTE: Spring Data JPA Reference - https://docs.spring.io/spring-data/jpa/reference/
+    DEPENDENCIA: RPG-M4-W16-02
+
+[ ] RPG-M4-W16-04 - Registrar ações administrativas
+    AREA: Auditoria | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Grave actor, ação, recurso, versão, horário e correlationId sem segredos.
+    ACEITE: É possível identificar quem alterou e publicou cada versão.
+    EVIDENCIA: audit_event e logs
+    FONTE: Spring Boot Actuator - https://docs.spring.io/spring-boot/reference/actuator/
+    DEPENDENCIA: RPG-M4-W16-03
+
+[ ] RPG-M4-W16-05 - Executar ArchUnit e fechar v0.4
+    AREA: Arquitetura/Release | TIPO: Entrega | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Impeça dependências proibidas, rode regressão, atualize docs/changelog e publique release.
+    ACEITE: Build falha em violação arquitetural e v0.4.0 demonstra conteúdo administrável.
+    EVIDENCIA: Architecture tests e release v0.4.0
+    FONTE: ArchUnit User Guide - https://www.archunit.org/userguide/html/000_Index.html
+    DEPENDENCIA: RPG-M4-W16-04
+
+[ ] RPG-M4-W16-06 - Publicar episódio 8
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre missão ramificada, content version, RBAC e publicação administrativa.
+    ACEITE: Vídeo publicado com fluxo draft -> publish -> jogo.
+    EVIDENCIA: Episódio 8 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M4-W16-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(segurança): complete week 16 core work
+- test: cover week 16 acceptance criteria
+- docs: document week 16 decisions and evidence

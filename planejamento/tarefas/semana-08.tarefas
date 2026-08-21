@@ -1,0 +1,74 @@
+SEMANA 08 - MISSÕES E JORNADA PERSISTENTE
+PERIODO: 12/10/2026 A 18/10/2026
+CARGA: 32 HORAS
+OBJETIVO: Conectar combate, loot e progressão sem acoplamento direto.
+ENTREGA: Missão completa e release v0.2.0.
+CONTEUDO: EPISODIO 04 / SHORT 08
+
+TAREFAS
+=======
+
+[ ] RPG-M2-W08-01 - Separar definição e instância
+    AREA: Missões | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Modele QuestDefinition imutável e QuestInstance por personagem com versão do conteúdo.
+    ACEITE: Alterar catálogo não muda progresso antigo silenciosamente.
+    EVIDENCIA: quest/domain/model
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M2-W07-06
+
+[ ] RPG-M2-W08-02 - Criar máquina de estados
+    AREA: Missões | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Implemente AVAILABLE, ACTIVE, COMPLETED, FAILED e CLAIMED com transições explícitas.
+    ACEITE: Não é possível concluir sem objetivos nem resgatar duas vezes.
+    EVIDENCIA: quest/domain/state
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M2-W08-01
+
+[ ] RPG-M2-W08-03 - Atualizar progresso por eventos
+    AREA: Objetivos | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Consuma BattleWon, ItemCollected e LocationVisited; registre eventId para idempotência.
+    ACEITE: Evento repetido não duplica progresso e só missões elegíveis avançam.
+    EVIDENCIA: quest/application/handlers
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M2-W08-02
+
+[ ] RPG-M2-W08-04 - Entregar recompensa atomicamente
+    AREA: Transações | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Atualize XP, moedas e itens em uma transação; defina comportamento para inventário cheio.
+    ACEITE: Toda recompensa é aplicada uma vez ou nenhuma alteração persiste.
+    EVIDENCIA: ClaimQuestRewardUseCase
+    FONTE: Spring Data JPA Reference - https://docs.spring.io/spring-data/jpa/reference/
+    DEPENDENCIA: RPG-M2-W08-03
+
+[ ] RPG-M2-W08-05 - Fechar jornada e v0.2.0
+    AREA: Release | TIPO: Entrega | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Recrie banco, rode migrations e execute personagem -> batalha -> loot -> XP -> missão; atualize docs, changelog e tag.
+    ACEITE: Jornada sobrevive a reinício e um terceiro a reproduz pelo README.
+    EVIDENCIA: Release v0.2.0
+    FONTE: Keep a Changelog - https://keepachangelog.com/en/1.1.0/
+    DEPENDENCIA: RPG-M2-W08-04
+
+[ ] RPG-M2-W08-06 - Publicar episódio 4
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Explique progressão, habilidades, eventos e missão idempotente; mostre jornada persistente.
+    ACEITE: Vídeo, capítulos, thumbnail e release v0.2.0 estão publicados.
+    EVIDENCIA: Episódio 4 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M2-W08-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(missões): complete week 08 core work
+- test: cover week 08 acceptance criteria
+- docs: document week 08 decisions and evidence

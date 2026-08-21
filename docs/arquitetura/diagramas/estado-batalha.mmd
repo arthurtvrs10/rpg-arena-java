@@ -1,0 +1,12 @@
+stateDiagram-v2
+    [*] --> CREATED
+    CREATED --> IN_PROGRESS: snapshots and turn selected
+    CREATED --> CANCELLED: initialization failed/aborted
+    IN_PROGRESS --> WON: enemy health = 0
+    IN_PROGRESS --> LOST: player health = 0
+    IN_PROGRESS --> FLED: flee accepted
+    IN_PROGRESS --> CANCELLED: administrative recovery only
+    WON --> [*]
+    LOST --> [*]
+    FLED --> [*]
+    CANCELLED --> [*]

@@ -1,0 +1,28 @@
+sequenceDiagram
+    actor P as Player
+    participant C as BattleController
+    participant U as ExecuteBattleAction
+    participant I as IdempotencyStore
+    participant R as BattleRepository
+    participant B as Battle Domain
+    participant X as ResultAccounting
+
+    P->>C: POST action + key + expectedVersion
+    C->>U: command(accountId, battleId, action)
+    U->>I: resolve scope/key/hash
+    alt completed repetition
+        I-->>U: stored response
+        U-->>C: stored result
+    else new command
+        U->>R: findOwnedForUpdate(accountId, battleId)
+        R-->>U: battle(version)
+        U->>B: execute(action)
+        B-->>U: events + new state
+        U->>R: save(expectedVersion)
+        alt battle terminal
+            U->>X: accountResultOnce(battleId)
+        end
+        U->>I: complete(response)
+        U-->>C: result
+    end
+    C-->>P: 200 or Problem Details
