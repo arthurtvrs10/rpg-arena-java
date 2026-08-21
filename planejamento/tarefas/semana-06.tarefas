@@ -1,0 +1,74 @@
+SEMANA 06 - INVENTÁRIO, EQUIPAMENTO E TRANSAÇÕES
+PERIODO: 28/09/2026 A 04/10/2026
+CARGA: 31 HORAS
+OBJETIVO: Garantir consistência ao manipular itens e atributos.
+ENTREGA: Inventário transacional com concorrência testada.
+CONTEUDO: EPISODIO 03 / SHORT 06
+
+TAREFAS
+=======
+
+[ ] RPG-M2-W06-01 - Modelar catálogo de itens
+    AREA: Itens | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Crie ItemDefinition para arma, armadura, consumível e material com raridade, preço, efeito e restrições.
+    ACEITE: Tipos inválidos não são instanciados e catálogo é separado da posse.
+    EVIDENCIA: inventory/domain/item
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M2-W05-06
+
+[ ] RPG-M2-W06-02 - Implementar slots e pilhas
+    AREA: Inventário | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Controle capacidade, stack size, adicionar, remover, transferir e consumir sem quantidade negativa.
+    ACEITE: Excesso de capacidade e item inexistente retornam erro de domínio sem alterar estado.
+    EVIDENCIA: inventory/domain/inventory
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M2-W06-01
+
+[ ] RPG-M2-W06-03 - Implementar equipar e desequipar
+    AREA: Equipamento | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Valide slot, classe e nível; calcule atributos derivados e preserve o item anterior se falhar.
+    ACEITE: Equipamento muda apenas stats derivados e rollback lógico mantém consistência.
+    EVIDENCIA: inventory/domain/equipment
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M2-W06-02
+
+[ ] RPG-M2-W06-04 - Criar tabela de recompensas
+    AREA: Loot | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Modele peso, raridade e quantidade com RandomSource; valide pesos e permita seed nos testes.
+    ACEITE: Distribuição é reproduzível e configuração inválida falha cedo.
+    EVIDENCIA: inventory/domain/loot
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M2-W06-03
+
+[ ] RPG-M2-W06-05 - Persistir e testar concorrência
+    AREA: Transações | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 7
+    FAZER: Faça loot, inventário e equipamento em transações; use optimistic locking e simule duas atualizações simultâneas.
+    ACEITE: Uma falha não deixa estado parcial e conflito vira resposta de negócio controlada.
+    EVIDENCIA: Migrations e integration tests
+    FONTE: PostgreSQL Documentation - https://www.postgresql.org/docs/current/
+    DEPENDENCIA: RPG-M2-W06-04
+
+[ ] RPG-M2-W06-06 - Publicar episódio 3
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre PostgreSQL, Flyway, mapeamento, transação e teste concorrente do inventário.
+    ACEITE: Vídeo publicado com demo de rollback e link para PRs.
+    EVIDENCIA: Episódio 3 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M2-W06-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(itens): complete week 06 core work
+- test: cover week 06 acceptance criteria
+- docs: document week 06 decisions and evidence

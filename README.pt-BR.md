@@ -1,205 +1,80 @@
-# RPG Arena API — Documentação em Português
+# RPG Arena API
 
-[![CI](https://github.com/arthurtvrs10/rpg-arena-java/actions/workflows/ci.yml/badge.svg)](https://github.com/arthurtvrs10/rpg-arena-java/actions/workflows/ci.yml)
+[![Java 21](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.x-6DB33F.svg)](https://spring.io/projects/spring-boot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Java: 21](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
-[![Spring Boot: 3.x](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
 
-> **O RPG Arena é um backend open-source de RPG por turnos projetado como um laboratório prático de engenharia de software com Java.**
->
-> O projeto vai além do CRUD básico explorando modelagem de domínio, máquinas de estado, transações, idempotência, ações concorrentes em batalha, autenticação, autorização, PostgreSQL, testes automatizados, Docker e integração contínua.
+Backend open source de um RPG PvE por turnos, desenvolvido como projeto de portfólio e laboratório de engenharia de software com Java, Spring Boot, PostgreSQL, segurança, testes, Docker e arquitetura orientada ao domínio.
 
-> [!IMPORTANT]
-> **Este projeto tem foco exclusivo em engenharia backend. Não é um jogo gráfico nem uma game engine.**
+> Estado atual: fundação do repositório. As funcionalidades estão planejadas e serão entregues durante 24 semanas. Não confunda requisito documentado com funcionalidade implementada.
 
-🇬🇧 **English Documentation:** For the primary English README and project specifications, see [README.md](README.md).
+## Jornada da versão 1.0
 
----
+O jogador cria uma conta e um personagem, explora um mundo em grafo, enfrenta inimigos, usa habilidades e itens, evolui, conclui missões ramificadas, negocia com comerciantes e aparece no ranking. Administradores publicam versões válidas de conteúdo sem alterar jornadas em andamento.
 
-## 1. O que o sistema faz
+## Escopo técnico
 
-- Cadastro e autenticação segura de jogadores com JWT;
-- Criação e progressão de personagens com regras puras de atributos e XP;
-- Inventário com equipamento atômico por slots;
-- Missões orientadas por máquina de estados com recompensas idempotentes;
-- Batalhas táticas PvE por turnos;
-- Controle de concorrência nas ações de combate com bloqueio otimista (`@Version`);
-- Ranking paginado apoiado por índices e consultas otimizadas;
-- Administração de catálogos de itens e missões;
-- Documentação OpenAPI/Swagger, healthcheck via Actuator e logs estruturados.
+- Java 21 e Spring Boot 4.1.x;
+- monólito modular por domínio;
+- PostgreSQL, Flyway, JPA, transações e optimistic locking;
+- API REST versionada, Problem Details e OpenAPI;
+- JWT de acesso, refresh rotativo, RBAC e ownership;
+- JUnit, Mockito, Testcontainers, ArchUnit e JaCoCo;
+- Bruno, Docker Compose, GitHub Actions, logs e métricas.
 
----
+## Módulos
 
-## 2. Stack Tecnológica
+`account`, `character`, `progression`, `inventory`, `combat`, `quest`, `world`, `economy`, `content`, `ranking` e `shared`.
 
-- **Linguagem:** Java 21 (LTS)
-- **Framework:** Spring Boot 3.x (Spring Web, Spring Security, Spring Data JPA, Spring Validation)
-- **Banco de Dados:** PostgreSQL 16
-- **Versionamento de Banco:** Flyway
-- **Testes:** JUnit 5, Mockito, AssertJ, Testcontainers
-- **Cliente HTTP / Testes de Contrato:** Bruno
-- **Containers:** Docker e Docker Compose
-- **Integração Contínua:** GitHub Actions
-- **Contrato de API:** OpenAPI 3.0
+## Documentação principal
 
----
+- [Comece aqui](00-COMECE-AQUI.md)
+- [Índice e decisões fechadas](docs/requisitos/00-INDICE-E-DECISOES-FECHADAS.md)
+- [Especificação do produto](docs/requisitos/01-ESPECIFICACAO-DO-PRODUTO.md)
+- [Catálogo de requisitos](docs/requisitos/02-CATALOGO-REQUISITOS.md)
+- [Regras de negócio](docs/requisitos/03-REGRAS-DE-NEGOCIO.md)
+- [Casos de uso](docs/requisitos/04-CASOS-DE-USO.md)
+- [Histórias e critérios BDD](docs/requisitos/05-HISTORIAS-E-CRITERIOS-BDD.md)
+- [Contrato OpenAPI](docs/api/openapi.yaml)
+- [Modelo de dados](docs/dados/MODELO-E-DICIONARIO-DE-DADOS.md)
+- [Matriz de rastreabilidade](docs/requisitos/08-MATRIZ-DE-RASTREABILIDADE.md)
+- [Roadmap de 24 semanas](planejamento/03-ROADMAP-24-SEMANAS.md)
+- [Plano da minissérie](planejamento/04-MINISSERIE-YOUTUBE.md)
 
-## 3. Arquitetura
+## Planejamento
 
-O projeto adota a arquitetura de **Monólito Modular** com organização por funcionalidade. Cada módulo encapsula sua API, aplicação, domínio e infraestrutura sem criar microsserviços prematuros.
+- Duração: 24 semanas, de 24/08/2026 a 07/02/2027;
+- carga: 18–22 horas semanais;
+- backlog: 144 tarefas;
+- conteúdo: 12 episódios e 24 Shorts;
+- releases: `v0.1.0`, `v0.2.0`, `v0.3.0`, `v0.4.0`, `v1.0.0-rc.1` e `v1.0.0`.
 
-```mermaid
-flowchart TD
-    C["Cliente / Bruno"] --> API["REST API (/api/v1)"]
-    API --> SEC["Spring Security & JWT"]
-    SEC --> MOD["Módulos de Negócio"]
-    
-    subgraph MOD["Fronteiras Modulares"]
-        M1["auth"]
-        M2["player"]
-        M3["character"]
-        M4["inventory"]
-        M5["mission"]
-        M6["battle (Java Puro)"]
-        M7["ranking"]
-    end
-    
-    MOD --> DB[("PostgreSQL 16")]
-    MOD --> OBS["Logs e Actuator"]
-```
+Abra `planejamento/BACKLOG-MESTRE-6-MESES.xlsx` para acompanhar o progresso e execute um arquivo por vez em `planejamento/tarefas/`.
 
----
-
-## 4. Decisões de Projeto
-
-- **Identidade segura:** A identidade do jogador é obtida estritamente do token JWT, nunca confiada a identificadores enviados no corpo ou na URL pelo cliente (proteção contra BOLA/IDOR).
-- **Domínio puro:** As regras de combate e cálculo de evolução são modeladas em classes Java puras, sem acoplamento a anotações ou dependências do Spring.
-- **Consistência transacional:** Missão e recompensa compartilham a mesma transação no banco de dados.
-- **Idempotência:** Ações e recompensas repetidas utilizam chave de idempotência para evitar efeitos duplicados.
-- **Concorrência segura:** Batalhas utilizam controle de versão otimista (`@Version`).
-- **Ranking desacoplado:** O ranking é uma projeção de leitura atualizada apenas após a finalização da batalha.
-- **Testes com banco real:** Testcontainers com PostgreSQL real é utilizado para validar persistência crítica.
-
-As decisões detalhadas estão registradas em [docs/adr/](docs/adr/).
-
----
-
-## 5. Pré-requisitos
-
-- Java 21 (JDK);
-- Docker e Docker Compose;
-- Git;
-- Bruno (opcional, para execução da coleção de endpoints).
-
----
-
-## 6. Execução Local
-
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/arthurtvrs10/rpg-arena-java.git
-   cd rpg-arena-java
-   ```
-
-2. **Configure o arquivo de ambiente:**
-   ```bash
-   cp .env.example .env
-   ```
-
-3. **Suba o banco de dados PostgreSQL:**
-   ```bash
-   docker compose up -d postgres
-   ```
-
-4. **Execute as migrations e a suíte de testes:**
-   ```bash
-   ./mvnw clean verify
-   ```
-
-5. **Inicie a aplicação Spring Boot:**
-   ```bash
-   ./mvnw spring-boot:run
-   ```
-
-6. **Verifique o healthcheck:**
-   ```bash
-   curl http://localhost:8080/actuator/health
-   ```
-
-Para executar tudo em containers Docker:
-```bash
-docker compose up --build
-```
-
----
-
-## 7. Configuração de Variáveis de Ambiente
-
-| Variável | Obrigatória | Padrão | Descrição |
-|---|:---:|---|---|
-| `DB_URL` | **Sim** | `jdbc:postgresql://localhost:5432/rpg_arena` | URL JDBC do PostgreSQL |
-| `DB_USERNAME` | **Sim** | `rpg_user` | Usuário do banco |
-| `DB_PASSWORD` | **Sim** | `rpg_password` | Senha do banco |
-| `JWT_SECRET` | **Sim** | — *(Chave de 256 bits)* | Segredo para assinatura de tokens JWT |
-| `JWT_EXPIRATION_MS` | Não | `86400000` (24h) | Validade do token em milissegundos |
-| `SERVER_PORT` | Não | `8080` | Porta HTTP da aplicação |
-| `SPRING_PROFILES_ACTIVE` | Não | `dev` | Perfil ativo do Spring |
-
-Nenhum segredo real deve ser versionado no repositório.
-
----
-
-## 8. Estratégia de Testes
+## Execução do esqueleto atual
 
 ```bash
-# Executar apenas testes unitários
-./mvnw test
-
-# Executar testes unitários, testes de slice e testes de integração com Testcontainers
-./mvnw verify
+./mvnw clean test
+./mvnw spring-boot:run
 ```
 
-- **Testes Unitários:** Regras de negócio, cálculos de dano e máquina de estados em Java puro;
-- **Testes de Aplicação e Slice:** `@WebMvcTest` e `@DataJpaTest` para validar contratos HTTP e repositórios;
-- **Testes de Integração:** Testes ponta a ponta com container PostgreSQL real gerenciado pelo Testcontainers;
-- **Testes de Segurança:** Validação de acesso cruzado (rejeição de acessos entre jogadores diferentes);
-- **Coleção Bruno:** Cenários de fluxo real na pasta `bruno/`.
+PostgreSQL, Flyway, Docker e demais dependências entram nas semanas indicadas pelo roadmap. Os comandos finais de infraestrutura serão liberados junto com as respectivas fatias verticais.
 
----
+## Convenção de trabalho
 
-## 9. Fluxo Demonstrável
+1. Issue com requisito, regra, critérios e evidência.
+2. Branch `tipo/descricao-curta`.
+3. Implementação em fatia vertical.
+4. Testes proporcionais ao risco.
+5. Pull request ligado à issue.
+6. Atualização da documentação e coleção Bruno.
+7. Merge somente com CI verde.
 
-1. Cadastrar jogador (`POST /api/v1/auth/register`);
-2. Autenticar e obter JWT (`POST /api/v1/auth/login`);
-3. Criar personagem (`POST /api/v1/characters`);
-4. Equipar item do inventário (`PUT /api/v1/characters/{id}/equipment/{slot}`);
-5. Iniciar e concluir missão (`POST /api/v1/characters/{id}/missions/{missionId}/attempts`);
-6. Verificar concessão idempotente de recompensa;
-7. Iniciar batalha PvE (`POST /api/v1/characters/{id}/battles`);
-8. Executar ações por turno até o encerramento (`POST /api/v1/battles/{id}/actions`);
-9. Consultar ranking paginado (`GET /api/v1/rankings`);
-10. Tentar acessar personagem de outro jogador e receber `403 Forbidden`.
+## Repositório
 
----
+- Nome: `rpg-arena-java`
+- Descrição: `Open-source turn-based RPG backend built with Java 21 and Spring Boot to practice domain modeling, REST APIs, PostgreSQL, security, testing, Docker, and software architecture.`
+- Licença: MIT
+- Topics: `java`, `spring-boot`, `postgresql`, `ddd`, `rest-api`, `spring-security`, `jwt`, `docker`, `junit`, `testcontainers`, `open-source`, `rpg`, `turn-based-game`, `backend`, `software-architecture`.
 
-## 10. Documentação Completa do Plano de 30 Dias
-
-Toda a trilha de estudo e especificações em português:
-
-- [Comece Aqui](docs/pt-BR/COMECE-AQUI.md)
-- [Plano Mestre de 30 Dias](docs/pt-BR/PLANO-MESTRE-30-DIAS.md)
-- [Escopo do Produto](docs/pt-BR/PRODUCT-SCOPE.md)
-- [Índice das 24 Tarefas Diárias](docs/pt-BR/INDICE-DAS-TAREFAS.md)
-- [Mapa de Competências e Evidências](docs/pt-BR/MAPA-DE-COMPETENCIAS.md)
-- [Documentos de Referência](docs/pt-BR/reference/)
-- [Plano de Estudo por Sprint](docs/pt-BR/study-plan/)
-- [Templates](docs/pt-BR/templates/)
-
----
-
-## 11. Autor
-
-Projeto desenvolvido por **Arthur Tavares**:
-- **GitHub:** [@arthurtvrs10](https://github.com/arthurtvrs10)
-- **Localização:** Brasília, DF - Brasil
-- **Perfil:** Engenharia de Software Backend com foco em Java e Spring Boot
+Autor: [Arthur Tavares](https://github.com/arthurtvrs10).

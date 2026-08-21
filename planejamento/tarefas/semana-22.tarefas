@@ -1,0 +1,74 @@
+SEMANA 22 - GOVERNANÇA OPEN SOURCE
+PERIODO: 18/01/2027 A 24/01/2027
+CARGA: 25 HORAS
+OBJETIVO: Permitir colaboração real com histórico profissional.
+ENTREGA: Community files, templates e contribuição simulada.
+CONTEUDO: EPISODIO 11 / SHORT 22
+
+TAREFAS
+=======
+
+[ ] RPG-M6-W22-01 - Revisar licença e terceiros
+    AREA: Licença | TIPO: Open source | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Confirme MIT, dependências e origem de assets; registre atribuições quando necessário.
+    ACEITE: Nenhum asset/dependência está sem licença compatível conhecida.
+    EVIDENCIA: LICENSE e THIRD_PARTY_NOTICES.md
+    FONTE: Choose a License - https://choosealicense.com/
+    DEPENDENCIA: RPG-M6-W21-06
+
+[ ] RPG-M6-W22-02 - Adicionar conduta, segurança e suporte
+    AREA: Comunidade | TIPO: Open source | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Crie CODE_OF_CONDUCT, SECURITY e SUPPORT com escopo, canais e resposta.
+    ACEITE: Repositório informa comportamento, vulnerabilidades e dúvidas.
+    EVIDENCIA: Community files
+    FONTE: Contributor Covenant - https://www.contributor-covenant.org/version/2/1/code_of_conduct/
+    DEPENDENCIA: RPG-M6-W22-01
+
+[ ] RPG-M6-W22-03 - Criar templates de issue e PR
+    AREA: GitHub | TIPO: Open source | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Adicione bug, feature, task e PR com reprodução, aceite, teste e vínculo à issue.
+    ACEITE: Toda nova issue/PR nasce com informações acionáveis.
+    EVIDENCIA: .github templates
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M6-W22-02
+
+[ ] RPG-M6-W22-04 - Organizar labels, milestones e board
+    AREA: Gestão | TIPO: Gestão | PRIORIDADE: Média | HORAS: 4
+    FAZER: Use type, area, priority, difficulty e status; organize v1.0 e v1.1.
+    ACEITE: Backlog público é filtrável e cada issue tem próximo passo.
+    EVIDENCIA: GitHub Project
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M6-W22-03
+
+[ ] RPG-M6-W22-05 - Simular contribuição externa
+    AREA: Colaboração | TIPO: Git/GitHub | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Abra issue, branch, mudança pequena, PR, review, correção e squash merge.
+    ACEITE: Histórico prova o fluxo profissional do início ao fim.
+    EVIDENCIA: Issue e PR de simulação
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M6-W22-04
+
+[ ] RPG-M6-W22-06 - Publicar episódio 11
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre deploy, runbook, templates e contribuição simulada sem transformar em tutorial de clique.
+    ACEITE: Vídeo publicado e repositório recebe chamadas para contribuição.
+    EVIDENCIA: Episódio 11 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M6-W22-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(licença): complete week 22 core work
+- test: cover week 22 acceptance criteria
+- docs: document week 22 decisions and evidence

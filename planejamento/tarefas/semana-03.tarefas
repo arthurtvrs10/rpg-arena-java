@@ -1,0 +1,74 @@
+SEMANA 03 - DOMÍNIO DE PERSONAGEM
+PERIODO: 07/09/2026 A 13/09/2026
+CARGA: 26 HORAS
+OBJETIVO: Modelar regras usando objetos ricos, invariantes e casos de uso.
+ENTREGA: Personagem consistente, independente de Spring e banco.
+CONTEUDO: EPISODIO 02 / SHORT 03
+
+TAREFAS
+=======
+
+[ ] RPG-M1-W03-01 - Criar Value Objects do personagem
+    AREA: Domínio | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Implemente CharacterId, CharacterName, Health, Mana, Strength, Defense e Agility com validação no construtor/factory.
+    ACEITE: Valores inválidos não existem e igualdade segue valor, não referência.
+    EVIDENCIA: character/domain/valueobject
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M1-W02-06
+
+[ ] RPG-M1-W03-02 - Modelar classes e atributos iniciais
+    AREA: Domínio | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Crie Warrior, Mage e Rogue como enum/política; defina stats iniciais e crescimento sem if espalhado.
+    ACEITE: Adicionar nova classe exige uma extensão localizada e testes deixam regras legíveis.
+    EVIDENCIA: character/domain/archetype
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M1-W03-01
+
+[ ] RPG-M1-W03-03 - Implementar agregado Character
+    AREA: Domínio | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Controle nome, classe, nível, XP, vida atual e estados ACTIVE, DEFEATED e UNAVAILABLE dentro do agregado.
+    ACEITE: Métodos impedem cura acima do máximo, dano negativo e ações quando derrotado.
+    EVIDENCIA: character/domain/model/Character.java
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M1-W03-02
+
+[ ] RPG-M1-W03-04 - Criar factory, portas e casos de uso
+    AREA: Aplicação | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Implemente criar, obter e renomear personagem com input/output próprios e porta CharacterRepository.
+    ACEITE: Casos de uso não importam web/JPA e retornam erro explícito.
+    EVIDENCIA: character/application
+    FONTE: ArchUnit User Guide - https://www.archunit.org/userguide/html/000_Index.html
+    DEPENDENCIA: RPG-M1-W03-03
+
+[ ] RPG-M1-W03-05 - Cobrir invariantes do personagem
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Use JUnit e testes parametrizados para nomes, atributos, classes, dano, cura, derrota e renomeação.
+    ACEITE: Caminho feliz, erro e limite de cada regra crítica estão cobertos.
+    EVIDENCIA: character/domain tests
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M1-W03-04
+
+[ ] RPG-M1-W03-06 - Produzir Short 3 e capturar episódio 2
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Grave Value Object vs tipo primitivo, factory e testes; salve antes/depois do domínio anêmico.
+    ACEITE: Short publicado e pasta do episódio contém gravações nomeadas.
+    EVIDENCIA: youtube/ep-02/raw e Short 03
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M1-W03-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(domínio): complete week 03 core work
+- test: cover week 03 acceptance criteria
+- docs: document week 03 decisions and evidence

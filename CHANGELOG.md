@@ -9,10 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Planned (Sprint 1)
-- Initial Spring Boot 3 bootstrap, PostgreSQL configuration, and Flyway baseline.
-- Domain model and pure Java character progression rules (`XP`, `level`, `stats`).
-- Architecture Decision Records (ADRs) for database, security, and modularity.
+### Added
+- Unified six-month package with code, planning, tasks and YouTube miniseries.
+- Approved requirements baseline: functional/non-functional requirements, business rules, use cases, BDD, security, risks and traceability.
+- OpenAPI draft, data dictionary, target architecture, domain events, initial game content and Bruno collection.
+- Java 21 / Spring Boot 4.1.x bootstrap under `io.github.arthurtvrs10.rpgarena`.
+
+### Planned (Month 1)
+- Modular architecture verification and initial ADR enforcement.
+- Pure Java character, progression and deterministic combat domains.
+- Release `v0.1.0` with a complete battle proven by tests.
 
 ---
 

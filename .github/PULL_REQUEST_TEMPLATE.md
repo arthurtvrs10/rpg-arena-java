@@ -6,6 +6,12 @@
 Fixes #<!-- Issue number here, e.g. #12 -->
 Related to Epic: <!-- e.g. [EPIC-01] -->
 
+### Traceability
+- Requirement(s): <!-- e.g. RF-CBT-004, RNF-CON-001 -->
+- Business rule(s): <!-- e.g. RN-CBT-005 -->
+- Use case / story: <!-- e.g. UC-12 / US-CBT-02 -->
+- Planned week / release: <!-- e.g. Week 12 / v0.3.0 -->
+
 ---
 
 ## Type of Change

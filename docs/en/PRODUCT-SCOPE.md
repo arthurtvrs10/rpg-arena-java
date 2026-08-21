@@ -1,4 +1,6 @@
-# Product Scope — RPG Arena API
+# Product Scope — archived 30-day version
+
+> **REFERENCE ONLY:** the current approved specification is maintained in `../requisitos/`.
 
 ## 1. Executive Summary
 

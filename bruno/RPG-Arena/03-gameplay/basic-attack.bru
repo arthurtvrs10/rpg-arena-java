@@ -1,0 +1,35 @@
+meta {
+  name: Basic Attack
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/battles/{{battleId}}/actions
+  body: json
+  auth: inherit
+}
+
+headers {
+  Idempotency-Key: {{$guid}}
+}
+
+body:json {
+  {
+    "actionType": "BASIC_ATTACK",
+    "expectedVersion": {{battleVersion}}
+  }
+}
+
+script:post-response {
+  if (res.status === 200) {
+    bru.setEnvVar("battleVersion", String(res.body.version));
+  }
+}
+
+tests {
+  test("ação retorna batalha atualizada", function () {
+    expect(res.status).to.equal(200);
+    expect(res.body.events).to.be.an("array");
+  });
+}

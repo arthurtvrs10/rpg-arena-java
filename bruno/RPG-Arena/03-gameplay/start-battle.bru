@@ -1,0 +1,32 @@
+meta {
+  name: Start Battle
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/characters/{{characterId}}/battles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "enemyCode": "GREY_WOLF",
+    "expectedCharacterVersion": {{characterVersion}}
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setEnvVar("battleId", res.body.id);
+    bru.setEnvVar("battleVersion", String(res.body.version));
+  }
+}
+
+tests {
+  test("batalha inicia em andamento", function () {
+    expect(res.status).to.equal(201);
+    expect(res.body.status).to.equal("IN_PROGRESS");
+  });
+}

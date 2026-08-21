@@ -1,0 +1,74 @@
+SEMANA 10 - APIS DE PERSONAGEM E INVENTÁRIO
+PERIODO: 26/10/2026 A 01/11/2026
+CARGA: 32 HORAS
+OBJETIVO: Expor os primeiros recursos com consultas e concorrência controladas.
+ENTREGA: Personagem e inventário consumíveis por HTTP.
+CONTEUDO: EPISODIO 05 / SHORT 10
+
+TAREFAS
+=======
+
+[ ] RPG-M3-W10-01 - Criar endpoints de personagem
+    AREA: API | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Implemente POST, GET lista própria, GET por id e PATCH nome com DTOs e casos de uso.
+    ACEITE: Bruno cobre 201, 200, 400, 404 e 409.
+    EVIDENCIA: /api/v1/characters
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M3-W09-06
+
+[ ] RPG-M3-W10-02 - Criar endpoints de inventário
+    AREA: API | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Implemente listar, equipar, desequipar e consumir mantendo transações no application service.
+    ACEITE: Responses mostram atributos derivados e falhas não deixam estado parcial.
+    EVIDENCIA: /api/v1/characters/{id}/inventory
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M3-W10-01
+
+[ ] RPG-M3-W10-03 - Adicionar paginação e filtros
+    AREA: Consultas | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Use limites máximos, ordenação allowlist e filtros por classe/status/raridade.
+    ACEITE: Parâmetros inválidos retornam 400 e consultas não usam full scan desnecessário.
+    EVIDENCIA: Query services e indexes
+    FONTE: Spring Data JPA Reference - https://docs.spring.io/spring-data/jpa/reference/
+    DEPENDENCIA: RPG-M3-W10-02
+
+[ ] RPG-M3-W10-04 - Aplicar optimistic locking e idempotência
+    AREA: Concorrência | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Use @Version e chaves idempotentes em comandos com risco de repetição.
+    ACEITE: Requisições simultâneas não silenciam perda de atualização nem duplicam efeitos.
+    EVIDENCIA: Concurrency controls
+    FONTE: PostgreSQL Documentation - https://www.postgresql.org/docs/current/
+    DEPENDENCIA: RPG-M3-W10-03
+
+[ ] RPG-M3-W10-05 - Integrar OpenAPI e testes HTTP
+    AREA: Testes/API | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Documente contratos e use testes com PostgreSQL para payloads, transações e versionamento.
+    ACEITE: OpenAPI corresponde à implementação e CI executa testes HTTP.
+    EVIDENCIA: OpenAPI inicial e integration tests
+    FONTE: springdoc-openapi - https://springdoc.org/
+    DEPENDENCIA: RPG-M3-W10-04
+
+[ ] RPG-M3-W10-06 - Publicar episódio 5
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre contrato REST, DTOs, Problem Details, Bruno e concorrência na API de personagem.
+    ACEITE: Vídeo publicado e coleção Bruno linkada no repositório.
+    EVIDENCIA: Episódio 5 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M3-W10-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(api): complete week 10 core work
+- test: cover week 10 acceptance criteria
+- docs: document week 10 decisions and evidence

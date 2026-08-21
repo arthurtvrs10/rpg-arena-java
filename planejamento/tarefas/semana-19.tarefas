@@ -1,0 +1,74 @@
+SEMANA 19 - DOCUMENTAÇÃO EXECUTÁVEL
+PERIODO: 28/12/2026 A 03/01/2027
+CARGA: 29 HORAS
+OBJETIVO: Eliminar dependência de explicação verbal para usar ou contribuir.
+ENTREGA: README, OpenAPI, Bruno e arquitetura atualizados.
+CONTEUDO: EPISODIO 10 / SHORT 19
+
+TAREFAS
+=======
+
+[ ] RPG-M5-W19-01 - Finalizar README principal
+    AREA: README | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Inclua proposta, demo, recursos, stack, arquitetura, setup, testes, API, roadmap, contribuição e licença.
+    ACEITE: Pessoa externa entende e executa o projeto sem mensagem privada.
+    EVIDENCIA: README.md
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M5-W18-06
+
+[ ] RPG-M5-W19-02 - Completar OpenAPI
+    AREA: API | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Documente security schemes, endpoints, schemas, exemplos, paginação e Problem Details; valide no build.
+    ACEITE: Todos os endpoints públicos aparecem e exemplos correspondem aos testes.
+    EVIDENCIA: OpenAPI JSON/YAML e Swagger UI
+    FONTE: springdoc-openapi - https://springdoc.org/
+    DEPENDENCIA: RPG-M5-W19-01
+
+[ ] RPG-M5-W19-03 - Automatizar collection runner
+    AREA: Bruno | TIPO: Testes | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Crie fluxo health -> register -> login -> character -> battle -> quest; gere dados e asserts.
+    ACEITE: Runner executa local e público sem edição manual.
+    EVIDENCIA: bruno/RPG-Arena
+    FONTE: Bruno Documentation - https://docs.usebruno.com/
+    DEPENDENCIA: RPG-M5-W19-02
+
+[ ] RPG-M5-W19-04 - Atualizar diagramas e ADRs
+    AREA: Arquitetura | TIPO: Documentação | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Crie C4 contexto/container, módulos, ERD e sequência de batalha; marque ADRs substituídos.
+    ACEITE: Diagramas refletem o código e decisões possuem status correto.
+    EVIDENCIA: docs/architecture e docs/adr
+    FONTE: Mermaid Documentation - https://mermaid.js.org/
+    DEPENDENCIA: RPG-M5-W19-03
+
+[ ] RPG-M5-W19-05 - Criar guia de onboarding
+    AREA: Contribuição | TIPO: Open source | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Explique ambiente, branches, commits, issue, testes, PR, DoD e debug comum.
+    ACEITE: Contribuidor realiza primeira mudança seguindo apenas o guia.
+    EVIDENCIA: CONTRIBUTING.md
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M5-W19-04
+
+[ ] RPG-M5-W19-06 - Produzir Short 19 e capturar episódio 10
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Mostre OpenAPI, Bruno Runner e diagrama que realmente acompanha o código.
+    ACEITE: Short publicado e assets de documentação organizados.
+    EVIDENCIA: youtube/ep-10/raw e Short 19
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M5-W19-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(readme): complete week 19 core work
+- test: cover week 19 acceptance criteria
+- docs: document week 19 decisions and evidence

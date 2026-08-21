@@ -1,0 +1,9 @@
+stateDiagram-v2
+    [*] --> ACTIVE: accept published version
+    ACTIVE --> COMPLETED: objectives and final node met
+    ACTIVE --> FAILED: terminal failure condition
+    ACTIVE --> ABANDONED: abandon allowed
+    COMPLETED --> REWARDED: atomic claim
+    FAILED --> [*]
+    ABANDONED --> [*]
+    REWARDED --> [*]

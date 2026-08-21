@@ -1,0 +1,74 @@
+SEMANA 14 - NPCS, LOJA E ECONOMIA
+PERIODO: 23/11/2026 A 29/11/2026
+CARGA: 31 HORAS
+OBJETIVO: Criar transações econômicas sem exploit ou inconsistência.
+ENTREGA: Compra e venda concorrentes e seguras.
+CONTEUDO: EPISODIO 07 / SHORT 14
+
+TAREFAS
+=======
+
+[ ] RPG-M4-W14-01 - Modelar Money e preços
+    AREA: Economia | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Use unidade inteira, moeda única, políticas de compra/venda, limites e arredondamento explícito.
+    ACEITE: Não há double, valor negativo, overflow silencioso ou preço fora da política.
+    EVIDENCIA: economy/domain/Money
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M4-W13-06
+
+[ ] RPG-M4-W14-02 - Modelar NPC e Merchant
+    AREA: NPC | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Separe NPC, diálogo, localização, catálogo, estoque e horário/condição de atendimento.
+    ACEITE: Comerciante só atende personagem elegível no mesmo local.
+    EVIDENCIA: npc e economy domain
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M4-W14-01
+
+[ ] RPG-M4-W14-03 - Implementar compra transacional
+    AREA: Loja | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Verifique saldo, estoque e inventário; debite e entregue item em uma transação.
+    ACEITE: Falha em qualquer etapa não consome moeda nem estoque.
+    EVIDENCIA: PurchaseUseCase
+    FONTE: Spring Data JPA Reference - https://docs.spring.io/spring-data/jpa/reference/
+    DEPENDENCIA: RPG-M4-W14-02
+
+[ ] RPG-M4-W14-04 - Implementar venda e reposição
+    AREA: Loja | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Valide propriedade e item vendável; proteja último item com lock/versão e idempotência.
+    ACEITE: Venda repetida e estoque negativo são impossíveis sob concorrência.
+    EVIDENCIA: Sell e Restock use cases
+    FONTE: PostgreSQL Documentation - https://www.postgresql.org/docs/current/
+    DEPENDENCIA: RPG-M4-W14-03
+
+[ ] RPG-M4-W14-05 - Testar economia concorrente
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Simule duas compras do último item, rollback e saldo insuficiente com Testcontainers.
+    ACEITE: Somente uma compra vence e todos os saldos fecham.
+    EVIDENCIA: Economy integration tests
+    FONTE: Testcontainers for Java - https://java.testcontainers.org/
+    DEPENDENCIA: RPG-M4-W14-04
+
+[ ] RPG-M4-W14-06 - Publicar episódio 7
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre mundo, encontro, Money, compra atômica e teste do último item.
+    ACEITE: Vídeo publicado com diagrama da transação e demo.
+    EVIDENCIA: Episódio 7 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M4-W14-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(economia): complete week 14 core work
+- test: cover week 14 acceptance criteria
+- docs: document week 14 decisions and evidence

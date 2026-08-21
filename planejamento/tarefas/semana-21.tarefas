@@ -1,0 +1,74 @@
+SEMANA 21 - DEPLOY E OPERAÇÃO
+PERIODO: 11/01/2027 A 17/01/2027
+CARGA: 31 HORAS
+OBJETIVO: Publicar com procedimentos de recuperação e verificação.
+ENTREGA: API HTTPS, banco gerenciado, smoke e monitoramento.
+CONTEUDO: EPISODIO 11 / SHORT 21
+
+TAREFAS
+=======
+
+[ ] RPG-M6-W21-01 - Escolher plataforma e registrar ADR
+    AREA: Decisão | TIPO: Documentação | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Compare custo, PostgreSQL, HTTPS, logs, métricas, secrets, rollback e limites; escolha uma opção.
+    ACEITE: ADR explica critérios, escolha, riscos e plano de saída.
+    EVIDENCIA: docs/adr/deployment.md
+    FONTE: Architecture Decision Records - https://adr.github.io/
+    DEPENDENCIA: RPG-M5-W20-06
+
+[ ] RPG-M6-W21-02 - Provisionar banco e aplicação
+    AREA: Deploy | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 7
+    FAZER: Crie banco, usuário de menor privilégio, variáveis e deploy da imagem; não copie segredo para arquivo.
+    ACEITE: API responde por HTTPS e banco aceita apenas conexão necessária.
+    EVIDENCIA: Ambiente público
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M6-W21-01
+
+[ ] RPG-M6-W21-03 - Controlar migrations em produção
+    AREA: Migrations | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Defina etapa única de migração, timeout, backup e compatibilidade entre versão nova/antiga.
+    ACEITE: Deploy concorrente não executa migration perigosa duas vezes.
+    EVIDENCIA: Pipeline/runbook de migration
+    FONTE: Flyway Documentation - https://documentation.red-gate.com/fd
+    DEPENDENCIA: RPG-M6-W21-02
+
+[ ] RPG-M6-W21-04 - Criar backup e rollback
+    AREA: Operação | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Documente backup, restore, rollback da imagem e resposta a migration incompatível; ensaie uma recuperação.
+    ACEITE: Runbook registra RPO/RTO aproximados e evidência do ensaio.
+    EVIDENCIA: docs/operations/runbook.md
+    FONTE: PostgreSQL Documentation - https://www.postgresql.org/docs/current/
+    DEPENDENCIA: RPG-M6-W21-03
+
+[ ] RPG-M6-W21-05 - Automatizar smoke e alertas
+    AREA: Monitoramento | TIPO: Operação | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Teste health, register, login, character e read; alerte indisponibilidade, erros e banco.
+    ACEITE: Smoke pós-deploy passa e cada alerta aponta para ação do runbook.
+    EVIDENCIA: Smoke workflow e alerts
+    FONTE: GitHub Actions - https://docs.github.com/actions
+    DEPENDENCIA: RPG-M6-W21-04
+
+[ ] RPG-M6-W21-06 - Produzir Short 21 e capturar episódio 11
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Mostre deploy, secrets, healthcheck, smoke falhando e rollback.
+    ACEITE: Short publicado sem expor credencial e gravações organizadas.
+    EVIDENCIA: youtube/ep-11/raw e Short 21
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M6-W21-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(decisão): complete week 21 core work
+- test: cover week 21 acceptance criteria
+- docs: document week 21 decisions and evidence

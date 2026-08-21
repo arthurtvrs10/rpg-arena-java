@@ -1,0 +1,74 @@
+SEMANA 07 - PROGRESSÃO, NÍVEIS E HABILIDADES
+PERIODO: 05/10/2026 A 11/10/2026
+CARGA: 29 HORAS
+OBJETIVO: Criar evolução de personagem extensível e auditável.
+ENTREGA: XP, level up e habilidades persistentes.
+CONTEUDO: EPISODIO 04 / SHORT 07
+
+TAREFAS
+=======
+
+[ ] RPG-M2-W07-01 - Definir curva de experiência
+    AREA: Progressão | TIPO: Documentação | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Documente XP por nível, limite, excesso e atributos ganhos por classe; gere exemplos até o nível 20.
+    ACEITE: A curva é calculável, monotônica e possui tabela de referência.
+    EVIDENCIA: docs/game-design/progression.md
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M2-W06-06
+
+[ ] RPG-M2-W07-02 - Implementar ganho de XP
+    AREA: Progressão | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Permita vários level ups em uma recompensa; atualize stats e recursos pela política da classe.
+    ACEITE: XP não se perde, limite máximo é respeitado e múltiplos níveis têm teste.
+    EVIDENCIA: progression/domain
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M2-W07-01
+
+[ ] RPG-M2-W07-03 - Modelar habilidades
+    AREA: Habilidades | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Crie SkillDefinition, custo, alvo, efeito, cooldown e pré-requisitos de classe/nível.
+    ACEITE: Uso inelegível não gasta recurso e explica a regra violada.
+    EVIDENCIA: skill/domain
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M2-W07-02
+
+[ ] RPG-M2-W07-04 - Publicar eventos de domínio
+    AREA: Eventos | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Gere CharacterLeveledUp e SkillUnlocked; processe handlers após sucesso sem acoplar módulos.
+    ACEITE: Handlers podem falhar de forma observável sem corromper o agregado.
+    EVIDENCIA: shared/domain/events e handlers
+    FONTE: Spring Boot Reference - https://docs.spring.io/spring-boot/
+    DEPENDENCIA: RPG-M2-W07-03
+
+[ ] RPG-M2-W07-05 - Persistir e testar progressão
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Crie migrations, adapters e testes parametrizados para curva, múltiplos níveis, skills, mana e cooldown.
+    ACEITE: Todos os limites documentados têm teste e persistência mantém estado.
+    EVIDENCIA: Progression integration tests
+    FONTE: Testcontainers for Java - https://java.testcontainers.org/
+    DEPENDENCIA: RPG-M2-W07-04
+
+[ ] RPG-M2-W07-06 - Produzir Short 7 e capturar episódio 4
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Grave XP de múltiplos níveis, política por classe e evento de domínio com teste.
+    ACEITE: Short publicado e roteiro visual do episódio revisado.
+    EVIDENCIA: youtube/ep-04/raw e Short 07
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M2-W07-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(progressão): complete week 07 core work
+- test: cover week 07 acceptance criteria
+- docs: document week 07 decisions and evidence

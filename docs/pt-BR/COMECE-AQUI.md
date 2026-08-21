@@ -1,4 +1,6 @@
-# RPG Arena — imersão backend de 30 dias
+# RPG Arena — imersão backend de 30 dias (arquivo)
+
+> **REFERÊNCIA ANTERIOR:** para o projeto atual de seis meses, comece em `../../00-COMECE-AQUI.md` e use `../requisitos/` como fonte oficial.
 
 Este é um plano de execução, não uma lista de assuntos. Durante quatro sprints você construirá uma API de RPG de turnos com Java 21, Spring Boot, PostgreSQL, Flyway, Spring Security, testes, Bruno, Docker e integração contínua.
 

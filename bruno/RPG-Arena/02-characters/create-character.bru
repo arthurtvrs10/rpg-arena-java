@@ -1,0 +1,33 @@
+meta {
+  name: Create Character
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/characters
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "{{characterName}}",
+    "classCode": "{{classCode}}"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setEnvVar("characterId", res.body.id);
+    bru.setEnvVar("characterVersion", String(res.body.version));
+  }
+}
+
+tests {
+  test("personagem nasce no nível 1", function () {
+    expect(res.status).to.equal(201);
+    expect(res.body.level).to.equal(1);
+    expect(res.body.experience).to.equal(0);
+  });
+}

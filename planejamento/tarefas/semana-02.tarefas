@@ -1,0 +1,74 @@
+SEMANA 02 - ARQUITETURA E AMBIENTE PROFISSIONAL
+PERIODO: 31/08/2026 A 06/09/2026
+CARGA: 24 HORAS
+OBJETIVO: Criar uma base técnica que suporte seis meses sem virar um projeto bagunçado.
+ENTREGA: Aplicação inicia, CI passa e arquitetura está registrada.
+CONTEUDO: EPISODIO 01 / SHORT 02
+
+TAREFAS
+=======
+
+[ ] RPG-M1-W02-01 - Definir monólito modular
+    AREA: Arquitetura | TIPO: Arquitetura | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Separe account, character, combat, inventory, progression, quest, world, economy e shared; use domínio, aplicação, infraestrutura e interfaces dentro de cada módulo.
+    ACEITE: O diagrama mostra módulos e nenhuma regra depende de controller ou JPA.
+    EVIDENCIA: docs/architecture/modules.md
+    FONTE: Architecture Decision Records - https://adr.github.io/
+    DEPENDENCIA: RPG-M1-W01-06
+
+[ ] RPG-M1-W02-02 - Criar projeto Java 21 e Spring Boot
+    AREA: Backend | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Gere Maven Wrapper com Web, Validation, Data JPA, Security, Actuator, PostgreSQL, Flyway e testes.
+    ACEITE: ./mvnw clean verify executa e /actuator/health responde UP.
+    EVIDENCIA: pom.xml e src/
+    FONTE: Spring Boot System Requirements - https://docs.spring.io/spring-boot/system-requirements.html
+    DEPENDENCIA: RPG-M1-W02-01
+
+[ ] RPG-M1-W02-03 - Criar árvore de pacotes
+    AREA: Estrutura | TIPO: Arquitetura | PRIORIDADE: Alta | HORAS: 3
+    FAZER: Implemente o pacote io.github.arthurtvrs10.rpgarena e a estrutura modular definida, ainda sem lógica falsa.
+    ACEITE: Pacotes seguem o desenho e não existe pacote global service/controller/repository.
+    EVIDENCIA: src/main/java/.../rpgarena
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M1-W02-02
+
+[ ] RPG-M1-W02-04 - Registrar ADRs iniciais
+    AREA: Decisões | TIPO: Documentação | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Crie ADRs para Java 21, Spring Boot 4.1, Maven, PostgreSQL, REST, monólito modular e UUID.
+    ACEITE: Cada ADR contém contexto, opções, decisão, consequências e status.
+    EVIDENCIA: docs/adr/0001-0007
+    FONTE: Architecture Decision Records - https://adr.github.io/
+    DEPENDENCIA: RPG-M1-W02-03
+
+[ ] RPG-M1-W02-05 - Configurar qualidade inicial
+    AREA: CI/CD | TIPO: CI/CD | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Crie GitHub Actions com Java 21, cache Maven, verify, formatação e branch protection; valide Docker Desktop ou registre fallback com PostgreSQL local.
+    ACEITE: PR de teste falha com teste quebrado e passa após correção; ambiente possui plano A e B.
+    EVIDENCIA: .github/workflows/ci.yml e docs/setup.md
+    FONTE: GitHub Actions - https://docs.github.com/actions
+    DEPENDENCIA: RPG-M1-W02-04
+
+[ ] RPG-M1-W02-06 - Publicar episódio 1
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 4
+    FAZER: Mostre escopo, decisões, árvore de módulos, setup e CI; use commits reais e feche com o próximo desafio.
+    ACEITE: Vídeo publicado, capítulos adicionados e links do repositório e playlist conferidos.
+    EVIDENCIA: Episódio 1 publicado
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M1-W02-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(arquitetura): complete week 02 core work
+- test: cover week 02 acceptance criteria
+- docs: document week 02 decisions and evidence

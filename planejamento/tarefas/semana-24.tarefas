@@ -1,0 +1,74 @@
+SEMANA 24 - RELEASE 1.0, PORTFÓLIO E MERCADO
+PERIODO: 01/02/2027 A 07/02/2027
+CARGA: 33 HORAS
+OBJETIVO: Transformar o projeto concluído em prova pública de competência.
+ENTREGA: v1.0.0, case study, demo e candidaturas iniciadas.
+CONTEUDO: EPISODIO 12 / SHORT 24
+
+TAREFAS
+=======
+
+[ ] RPG-M6-W24-01 - Publicar v1.0.0
+    AREA: Release | TIPO: Entrega | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Crie tag, release notes, imagem, deploy e smoke final; congele o marco e abra v1.1.
+    ACEITE: Release pública corresponde ao commit implantado e smoke passa.
+    EVIDENCIA: GitHub Release v1.0.0
+    FONTE: Semantic Versioning - https://semver.org/
+    DEPENDENCIA: RPG-M6-W23-06
+
+[ ] RPG-M6-W24-02 - Escrever estudo de caso
+    AREA: Portfólio | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Explique problema, escopo, arquitetura, regras difíceis, decisões, testes, incidentes, resultados e próximos passos.
+    ACEITE: Case possui evidências, links e decisões explicadas com suas palavras.
+    EVIDENCIA: docs/portfolio/case-study.md
+    FONTE: Architecture Decision Records - https://adr.github.io/
+    DEPENDENCIA: RPG-M6-W24-01
+
+[ ] RPG-M6-W24-03 - Gravar demonstração técnica
+    AREA: Demo | TIPO: Conteúdo | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Mostre setup, autenticação, personagem, combate, missão, testes, Docker e produção em 6-10 minutos.
+    ACEITE: Demo prova funcionamento sem depender de cortes confusos.
+    EVIDENCIA: Vídeo demo no README
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M6-W24-02
+
+[ ] RPG-M6-W24-04 - Atualizar GitHub e currículo
+    AREA: Perfil | TIPO: Carreira | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Fixe o repositório, adicione case/demo, escreva bullets de impacto e liste tecnologias realmente usadas.
+    ACEITE: Recrutador encontra contexto, código, execução e resultados em poucos minutos.
+    EVIDENCIA: GitHub, currículo e LinkedIn
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M6-W24-03
+
+[ ] RPG-M6-W24-05 - Iniciar candidaturas e feedback
+    AREA: Mercado | TIPO: Carreira | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Candidate-se, registre vaga, resposta, gaps e ação; pratique explicar arquitetura, SQL, segurança e testes.
+    ACEITE: Candidaturas começaram antes de qualquer sensação de perfeição e feedback vira issue/estudo.
+    EVIDENCIA: Tracker de candidaturas e interview-notes.md
+    FONTE: GitHub Documentation - https://docs.github.com/
+    DEPENDENCIA: RPG-M6-W24-04
+
+[ ] RPG-M6-W24-06 - Publicar episódio 12 e encerrar a temporada
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Conte a história completa, resultados, decisões, erros, métricas, lições e roadmap v1.1.
+    ACEITE: Final publicado com playlist completa, CTA para repositório e retrospectiva após 7 dias.
+    EVIDENCIA: Episódio 12 e playlist final
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M6-W24-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(release): complete week 24 core work
+- test: cover week 24 acceptance criteria
+- docs: document week 24 decisions and evidence

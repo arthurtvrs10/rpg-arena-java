@@ -1,0 +1,74 @@
+SEMANA 15 - MISSÕES RAMIFICADAS E DIÁLOGO
+PERIODO: 30/11/2026 A 06/12/2026
+CARGA: 32 HORAS
+OBJETIVO: Permitir conteúdo narrativo sem hardcode no fluxo principal.
+ENTREGA: Escolhas, consequências e conteúdo versionado.
+CONTEUDO: EPISODIO 08 / SHORT 15
+
+TAREFAS
+=======
+
+[ ] RPG-M4-W15-01 - Definir schema narrativo
+    AREA: Conteúdo | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Modele quest, etapas, escolhas, condições, diálogos, efeitos e recompensas em formato versionável.
+    ACEITE: Conteúdo inválido falha na carga com mensagem e caminho do campo.
+    EVIDENCIA: docs/content/quest-schema.md
+    FONTE: OpenAPI Specification - https://spec.openapis.org/oas/latest.html
+    DEPENDENCIA: RPG-M4-W14-06
+
+[ ] RPG-M4-W15-02 - Implementar pré-requisitos e cadeias
+    AREA: Missões | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Crie policies para nível, classe, missão anterior, item, reputação e localização.
+    ACEITE: Sistema explica por que uma missão está bloqueada sem if espalhado.
+    EVIDENCIA: QuestEligibilityPolicy
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M4-W15-01
+
+[ ] RPG-M4-W15-03 - Modelar nós e escolhas
+    AREA: Diálogo | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Implemente DialogueNode, Choice e transições; valide opção disponível e consumo único.
+    ACEITE: Escolha inexistente, bloqueada ou repetida não altera estado.
+    EVIDENCIA: dialogue/domain
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M4-W15-02
+
+[ ] RPG-M4-W15-04 - Aplicar efeitos e versionamento
+    AREA: Consequências | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Permita moeda, item, reputação, flag e nova missão; vincule instância à versão publicada.
+    ACEITE: Nova publicação não corrompe jornada em andamento.
+    EVIDENCIA: Narrative effects e content version
+    FONTE: Spring Data JPA Reference - https://docs.spring.io/spring-data/jpa/reference/
+    DEPENDENCIA: RPG-M4-W15-03
+
+[ ] RPG-M4-W15-05 - Expor narrativa e validar contratos
+    AREA: API/Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Implemente dialogue/choices e testes de schema, cadeia, escolha e idempotência.
+    ACEITE: Fluxo ramificado completo roda no Bruno e no CI.
+    EVIDENCIA: /api/v1/dialogues e tests
+    FONTE: Bruno Documentation - https://docs.usebruno.com/
+    DEPENDENCIA: RPG-M4-W15-04
+
+[ ] RPG-M4-W15-06 - Produzir Short 15 e capturar episódio 8
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Mostre máquina de estados, uma escolha com consequência e conteúdo inválido sendo rejeitado.
+    ACEITE: Short publicado e árvore narrativa exportada.
+    EVIDENCIA: youtube/ep-08/raw e Short 15
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M4-W15-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(conteúdo): complete week 15 core work
+- test: cover week 15 acceptance criteria
+- docs: document week 15 decisions and evidence

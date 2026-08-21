@@ -1,0 +1,74 @@
+SEMANA 13 - MUNDO, LOCAIS E EXPLORAÇÃO
+PERIODO: 16/11/2026 A 22/11/2026
+CARGA: 30 HORAS
+OBJETIVO: Transformar módulos isolados em uma jornada de mundo.
+ENTREGA: Mapa em grafo, viagem e encontros.
+CONTEUDO: EPISODIO 07 / SHORT 13
+
+TAREFAS
+=======
+
+[ ] RPG-M4-W13-01 - Modelar regiões e locais
+    AREA: Mundo | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Crie Region, Location, nível recomendado, tags, disponibilidade e conexões direcionadas.
+    ACEITE: Grafo rejeita conexão inválida e localização inexistente.
+    EVIDENCIA: world/domain/location
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M3-W12-06
+
+[ ] RPG-M4-W13-02 - Implementar viagem
+    AREA: Exploração | TIPO: Desenvolvimento | PRIORIDADE: Crítica | HORAS: 5
+    FAZER: Valide origem, destino conectado, custo, estado e requisito; publique LocationVisited.
+    ACEITE: Não existe teletransporte indevido e custo é aplicado uma vez.
+    EVIDENCIA: TravelUseCase
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M4-W13-01
+
+[ ] RPG-M4-W13-03 - Criar encontros configuráveis
+    AREA: Encontros | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 6
+    FAZER: Modele batalha, descoberta, NPC e recompensa com pesos e condições.
+    ACEITE: RandomSource torna encontro reproduzível e só opções elegíveis entram no sorteio.
+    EVIDENCIA: world/domain/encounter
+    FONTE: Java Learning - https://dev.java/learn/
+    DEPENDENCIA: RPG-M4-W13-02
+
+[ ] RPG-M4-W13-04 - Persistir mapa e posição
+    AREA: Persistência | TIPO: Desenvolvimento | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Crie migrations para local, aresta e posição; carregue seed versionado.
+    ACEITE: Banco novo recebe mapa válido e posição sobrevive a reinício.
+    EVIDENCIA: World migrations e seed
+    FONTE: Flyway Documentation - https://documentation.red-gate.com/fd
+    DEPENDENCIA: RPG-M4-W13-03
+
+[ ] RPG-M4-W13-05 - Expor mapa e viagem
+    AREA: API/Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Implemente locais, destinos e travel; teste requisitos, ownership e eventos.
+    ACEITE: Bruno demonstra exploração completa e bloqueios.
+    EVIDENCIA: /api/v1/world e tests
+    FONTE: Bruno Documentation - https://docs.usebruno.com/
+    DEPENDENCIA: RPG-M4-W13-04
+
+[ ] RPG-M4-W13-06 - Produzir Short 13 e capturar episódio 7
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Mostre mapa como grafo, uma viagem negada e um encontro determinístico.
+    ACEITE: Short publicado e diagrama do mapa exportado.
+    EVIDENCIA: youtube/ep-07/raw e Short 13
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M4-W13-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(mundo): complete week 13 core work
+- test: cover week 13 acceptance criteria
+- docs: document week 13 decisions and evidence

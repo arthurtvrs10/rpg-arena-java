@@ -1,0 +1,23 @@
+flowchart TD
+    REST[REST + Security] --> APP[Application use cases]
+    APP --> ACCOUNT[account]
+    APP --> CHARACTER[character]
+    APP --> INVENTORY[inventory]
+    APP --> COMBAT[combat]
+    APP --> QUEST[quest]
+    APP --> WORLD[world]
+    APP --> ECONOMY[economy]
+    APP --> CONTENT[content]
+    APP --> RANKING[ranking]
+    CHARACTER --> PROGRESSION[progression]
+    COMBAT -. events .-> PROGRESSION
+    COMBAT -. events .-> QUEST
+    COMBAT -. events .-> RANKING
+    WORLD -. encounter .-> COMBAT
+    ECONOMY --> INVENTORY
+    CONTENT -. published contracts .-> CHARACTER
+    CONTENT -. published contracts .-> COMBAT
+    CONTENT -. published contracts .-> QUEST
+    CONTENT -. published contracts .-> WORLD
+    INFRA[Persistence adapters] --> DB[(PostgreSQL)]
+    APP --> INFRA

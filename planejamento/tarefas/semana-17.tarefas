@@ -1,0 +1,74 @@
+SEMANA 17 - ESTRATÉGIA DE TESTES E COBERTURA ÚTIL
+PERIODO: 14/12/2026 A 20/12/2026
+CARGA: 30 HORAS
+OBJETIVO: Criar uma rede de segurança baseada em riscos, não em números vazios.
+ENTREGA: Suíte organizada, rápida e auditável.
+CONTEUDO: EPISODIO 09 / SHORT 17
+
+TAREFAS
+=======
+
+[ ] RPG-M5-W17-01 - Escrever estratégia de testes
+    AREA: Qualidade | TIPO: Documentação | PRIORIDADE: Crítica | HORAS: 4
+    FAZER: Mapeie riscos por módulo e escolha unit, slice, integration, contract e smoke; defina o que não testar.
+    ACEITE: Cada risco crítico possui tipo, camada, dado e objetivo de teste.
+    EVIDENCIA: docs/testing/strategy.md
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M4-W16-06
+
+[ ] RPG-M5-W17-02 - Completar testes de domínio
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 7
+    FAZER: Feche gaps de combate, inventário, progressão, quest, economia e policies; remova testes de getter.
+    ACEITE: Cada regra crítica possui caminho feliz, erro e limite.
+    EVIDENCIA: Domain test suites
+    FONTE: JUnit User Guide - https://junit.org/junit5/docs/current/user-guide/
+    DEPENDENCIA: RPG-M5-W17-01
+
+[ ] RPG-M5-W17-03 - Criar Test Data Builders
+    AREA: Testes | TIPO: Testes | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Substitua fixtures globais por builders explícitos e factories por domínio.
+    ACEITE: Testes ficam independentes, legíveis e sem estado compartilhado.
+    EVIDENCIA: src/test/.../fixtures
+    FONTE: Mockito Documentation - https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html
+    DEPENDENCIA: RPG-M5-W17-02
+
+[ ] RPG-M5-W17-04 - Padronizar Testcontainers
+    AREA: Integração | TIPO: Testes | PRIORIDADE: Crítica | HORAS: 6
+    FAZER: Crie base reutilizável, PostgreSQL isolado, Flyway real e limpeza determinística.
+    ACEITE: Suíte roda local/CI sem banco instalado e sem ordem entre testes.
+    EVIDENCIA: Integration test infrastructure
+    FONTE: Testcontainers for Java - https://java.testcontainers.org/
+    DEPENDENCIA: RPG-M5-W17-03
+
+[ ] RPG-M5-W17-05 - Configurar JaCoCo
+    AREA: Cobertura | TIPO: CI/CD | PRIORIDADE: Alta | HORAS: 5
+    FAZER: Defina limites por pacote com exigência maior no domínio; publique relatório no CI.
+    ACEITE: Queda abaixo do limite bloqueia PR e exclusões estão justificadas.
+    EVIDENCIA: JaCoCo report e quality gate
+    FONTE: JaCoCo Documentation - https://www.jacoco.org/jacoco/trunk/doc/
+    DEPENDENCIA: RPG-M5-W17-04
+
+[ ] RPG-M5-W17-06 - Produzir Short 17 e capturar episódio 9
+    AREA: YouTube | TIPO: Conteúdo | PRIORIDADE: Média | HORAS: 3
+    FAZER: Compare teste útil vs cobertura vazia e mostre um builder reduzindo ruído.
+    ACEITE: Short publicado e relatórios/execuções gravados.
+    EVIDENCIA: youtube/ep-09/raw e Short 17
+    FONTE: YouTube Creators - https://www.youtube.com/creators/
+    DEPENDENCIA: RPG-M5-W17-05
+
+CHECKPOINT FINAL
+================
+
+[ ] Entrega semanal demonstrada do início ao fim.
+[ ] Testes e CI verdes.
+[ ] Documentação e Bruno/OpenAPI atualizados quando aplicável.
+[ ] PR ligado à issue e evidência anexada.
+[ ] Gravações, screenshots e diagrama salvos.
+[ ] Retrospectiva: manter, parar, começar.
+
+COMMITS SUGERIDOS
+=================
+
+- feat(qualidade): complete week 17 core work
+- test: cover week 17 acceptance criteria
+- docs: document week 17 decisions and evidence
